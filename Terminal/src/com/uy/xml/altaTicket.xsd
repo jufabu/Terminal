@@ -1,0 +1,29 @@
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema">
+	<xs:simpleType name="matriculaT">
+		<xs:restriction base="xs:string">
+			<xs:pattern value="([a-z]|[A-Z]){3}[0-9]{4}" />
+		</xs:restriction>
+	</xs:simpleType>
+
+	<xs:simpleType name="fechaEstT">
+		<xs:restriction base="xs:dateTime">
+			<xs:pattern value="[0-9]{4}-[0-9]{2}-[0-9]{2}T[0-9]{2}:[0-9]{2}:00.*" />
+		</xs:restriction>
+	</xs:simpleType>
+
+
+	<xs:element name="xmlAltaTicket" nillable="false">
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element name="matricula" type="matriculaT" nillable="false" />
+				<xs:element name="fechaHoraInicioEst" type="fechaEstT"
+					nillable="false" />
+				<xs:element name="cantidadMinutos" type="xs:positiveInteger"
+					nillable="false" />
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+
+
+
+</xs:schema> 
