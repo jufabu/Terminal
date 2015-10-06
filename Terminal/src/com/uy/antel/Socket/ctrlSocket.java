@@ -135,7 +135,7 @@ public class ctrlSocket {
 	public XmlDataTicket recibeDataTicket(){
 		InputStream in = null;
 		OutputStream out = null;
-		XmlDataTicket ticket;
+		XmlDataTicket ticket = null;
 		
 		try {
 			in = socket.getInputStream();
@@ -145,31 +145,30 @@ public class ctrlSocket {
 			System.exit(-1);
 		}
 
-		while (true) {
-			try {
-//				SchemaFactory sf = SchemaFactory.newInstance(XMLConstants.W3C_XML_SCHEMA_NS_URI);
-//				Schema schema;
-//
-//				schema = sf.newSchema(new File("src/com/uy/antel/xml/altaTicket.xsd"));
-				JAXBContext jaxbContext;
-				jaxbContext = JAXBContext.newInstance(XmlDataTicket.class);
-				Unmarshaller jaxbUnmarshaller = jaxbContext.createUnmarshaller();
-//				jaxbUnmarshaller.setSchema(schema);
-				//Hago la conversion de XML -> objeto AltaTicket.
-				XmlDataTicket inDataTicket = (XmlDataTicket) jaxbUnmarshaller.unmarshal(in);
-				
-				return inDataTicket;	
-				
-				
-//			} catch (SAXException e) {
-//				// TODO Auto-generated catch block
-//				e.printStackTrace();
+		try{		
+			while (true) {
+			
+	//				SchemaFactory sf = SchemaFactory.newInstance(XMLConstants.W3C_XML_SCHEMA_NS_URI);
+	//				Schema schema;
+	//
+	//				schema = sf.newSchema(new File("src/com/uy/antel/xml/altaTicket.xsd"));
+					JAXBContext jaxbContext;
+					jaxbContext = JAXBContext.newInstance(XmlDataTicket.class);
+					Unmarshaller jaxbUnmarshaller = jaxbContext.createUnmarshaller();
+	//				jaxbUnmarshaller.setSchema(schema);
+					//Hago la conversion de XML -> objeto AltaTicket.
+					ticket = (XmlDataTicket) jaxbUnmarshaller.unmarshal(in);
+					
+					//			} catch (SAXException e) {
+	//				// TODO Auto-generated catch block
+	//				e.printStackTrace();
+			
 			}
-			catch (JAXBException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
+		}catch (JAXBException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
 		}
+		return ticket;
 	}
 
 }
