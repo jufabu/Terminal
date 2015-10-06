@@ -2,11 +2,11 @@
 // Este archivo ha sido generado por la arquitectura JavaTM para la implantación de la referencia de enlace (JAXB) XML v2.2.11 
 // Visite <a href="http://java.sun.com/xml/jaxb">http://java.sun.com/xml/jaxb</a> 
 // Todas las modificaciones realizadas en este archivo se perderán si se vuelve a compilar el esquema de origen. 
-// Generado el: 2015.09.29 a las 08:58:59 PM UYT 
+// Generado el: 2015.10.05 a las 08:19:04 PM UYST 
 //
 
 
-package com.uy.xml.AltaTicket;
+package com.uy.xml.antel.AltaTicket;
 
 import javax.xml.bind.annotation.XmlRegistry;
 

@@ -1,7 +1,8 @@
-package com.uy.Socket;
+package com.uy.antel.Socket;
 
 import java.awt.event.ActionEvent;
 import java.io.BufferedReader;
+import java.io.File;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.OutputStream;
@@ -13,17 +14,22 @@ import java.net.UnknownHostException;
 import java.util.GregorianCalendar;
 import java.util.TimeZone;
 
+import javax.xml.XMLConstants;
 import javax.xml.bind.JAXBContext;
 import javax.xml.bind.JAXBException;
 import javax.xml.bind.Marshaller;
+import javax.xml.bind.Unmarshaller;
 import javax.xml.datatype.DatatypeConfigurationException;
 import javax.xml.datatype.DatatypeFactory;
 import javax.xml.datatype.XMLGregorianCalendar;
+import javax.xml.validation.*;
+
 import java.util.Calendar;
 
 import org.xml.sax.SAXException;
 
-import com.uy.xml.AltaTicket.*;
+import com.uy.xml.antel.AltaTicket.*;
+import com.uy.xml.antel.DataTicket.XmlDataTicket;
 
 public class ctrlSocket {
 	Socket socket;
@@ -43,7 +49,7 @@ public class ctrlSocket {
 
 	}
 
-	public void listenSocket(String matricula, GregorianCalendar fechaIn, Integer duracion) {
+	public void XmlEnvioAltaTicket(String matricula, String fechaIn, Integer duracion) {
 		// Create socket connection
 
 		try {
@@ -64,12 +70,7 @@ public class ctrlSocket {
 			XmlAltaTicket altaTicket = factory.createXmlAltaTicket();
 			altaTicket.setCantidadMinutos(BigInteger.valueOf(duracion));
 
-			GregorianCalendar c = new GregorianCalendar();
-			// c.setTime(new Date());
-			c = fechaIn;
-			XMLGregorianCalendar xgc = DatatypeFactory.newInstance().newXMLGregorianCalendar(c);
-
-			altaTicket.setFechaHoraInicioEst(xgc);
+			altaTicket.setFechaHoraInicioEst(fechaIn);
 
 			altaTicket.setMatricula(matricula);
 
@@ -86,13 +87,48 @@ public class ctrlSocket {
 		} catch (JAXBException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
-		} catch (DatatypeConfigurationException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
 		}
 
 	}
 	
-	
+	public XmlDataTicket recibeDataTicket(){
+		InputStream in = null;
+		OutputStream out = null;
+		XmlDataTicket ticket;
+		
+		try {
+			in = socket.getInputStream();
+			out = socket.getOutputStream();
+		} catch (IOException e) {
+			System.out.println("in or out failed");
+			System.exit(-1);
+		}
+
+		while (true) {
+			try {
+				SchemaFactory sf = SchemaFactory.newInstance(XMLConstants.W3C_XML_SCHEMA_NS_URI);
+				Schema schema;
+
+				schema = sf.newSchema(new File("src/com/uy/antel/xml/altaTicket.xsd"));
+				JAXBContext jaxbContext;
+				jaxbContext = JAXBContext.newInstance(XmlDataTicket.class);
+				Unmarshaller jaxbUnmarshaller = jaxbContext.createUnmarshaller();
+				jaxbUnmarshaller.setSchema(schema);
+				//Hago la conversion de XML -> objeto AltaTicket.
+				XmlDataTicket inDataTicket = (XmlDataTicket) jaxbUnmarshaller.unmarshal(in);
+				
+				return inDataTicket;	
+				
+				
+			} catch (SAXException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			catch (JAXBException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}
+	}
 
 }
