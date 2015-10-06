@@ -6,7 +6,7 @@
 //
 
 
-package com.uy.xml.antel.AltaTicket;
+package com.uy.antel.xml.AltaTicket;
 
 import java.math.BigInteger;
 import javax.xml.bind.annotation.XmlAccessType;

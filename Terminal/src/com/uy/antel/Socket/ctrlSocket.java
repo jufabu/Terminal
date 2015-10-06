@@ -28,8 +28,8 @@ import java.util.Calendar;
 
 import org.xml.sax.SAXException;
 
-import com.uy.xml.antel.AltaTicket.*;
-import com.uy.xml.antel.DataTicket.XmlDataTicket;
+import com.uy.antel.xml.AltaTicket.*;
+import com.uy.antel.xml.DataTicket.XmlDataTicket;
 
 public class ctrlSocket {
 	Socket socket;
@@ -74,7 +74,7 @@ public class ctrlSocket {
 
 			altaTicket.setMatricula(matricula);
 
-			JAXBContext context = JAXBContext.newInstance("com.uy.xml.AltaTicket");
+			JAXBContext context = JAXBContext.newInstance("com.uy.antel.xml.AltaTicket");
 
 			// JAXBElement<AltaTicket> elemento =
 			// factory.createAltaTicket(altaTicket);
@@ -106,23 +106,23 @@ public class ctrlSocket {
 
 		while (true) {
 			try {
-				SchemaFactory sf = SchemaFactory.newInstance(XMLConstants.W3C_XML_SCHEMA_NS_URI);
-				Schema schema;
-
-				schema = sf.newSchema(new File("src/com/uy/antel/xml/altaTicket.xsd"));
+//				SchemaFactory sf = SchemaFactory.newInstance(XMLConstants.W3C_XML_SCHEMA_NS_URI);
+//				Schema schema;
+//
+//				schema = sf.newSchema(new File("src/com/uy/antel/xml/altaTicket.xsd"));
 				JAXBContext jaxbContext;
 				jaxbContext = JAXBContext.newInstance(XmlDataTicket.class);
 				Unmarshaller jaxbUnmarshaller = jaxbContext.createUnmarshaller();
-				jaxbUnmarshaller.setSchema(schema);
+//				jaxbUnmarshaller.setSchema(schema);
 				//Hago la conversion de XML -> objeto AltaTicket.
 				XmlDataTicket inDataTicket = (XmlDataTicket) jaxbUnmarshaller.unmarshal(in);
 				
 				return inDataTicket;	
 				
 				
-			} catch (SAXException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
+//			} catch (SAXException e) {
+//				// TODO Auto-generated catch block
+//				e.printStackTrace();
 			}
 			catch (JAXBException e) {
 				// TODO Auto-generated catch block

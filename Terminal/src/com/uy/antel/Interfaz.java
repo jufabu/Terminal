@@ -9,8 +9,8 @@ import java.util.GregorianCalendar;
 import java.util.Scanner;
 
 import com.uy.antel.Socket.*;
-import com.uy.xml.antel.AltaTicket.*;
-import com.uy.xml.antel.DataTicket.XmlDataTicket;
+import com.uy.antel.xml.AltaTicket.*;
+import com.uy.antel.xml.DataTicket.XmlDataTicket;
 
 public class Interfaz {
 
