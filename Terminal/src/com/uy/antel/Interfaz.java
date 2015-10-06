@@ -1,11 +1,10 @@
 package com.uy.antel;
 
+import java.math.BigInteger;
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.util.Calendar;
-import java.util.Date;
-import java.util.GregorianCalendar;
+
 import java.util.Scanner;
 
 import com.uy.antel.Socket.*;
@@ -26,6 +25,7 @@ public class Interfaz {
 		Integer idTicket;
 		String usuarioLogin;
 		String passLogin;
+		Integer idTerminal;
 		
 		System.out.println("Usuario: ");
 		Scanner usuario = new Scanner(System.in);
@@ -33,14 +33,16 @@ public class Interfaz {
 		System.out.println("Password: ");
 		Scanner pass = new Scanner(System.in);
 		passLogin = pass.nextLine();
-		
+		idTerminal= 1;
+		ctrlSocket socketLogin = new ctrlSocket();
+		socketLogin.Login(usuarioLogin, passLogin, idTerminal);
 		
 		
 		/* PIDO QUE INGRESE LOS DATOS */
 		System.out.println("Ingrese los datos en el siguente orden");
 		System.out.println("Matricula fechaInicio(yyyy-MM-dd_HH:mm) duracion(min)");
 		Scanner entrada = new Scanner(System.in);
-			
+		
 		cadena = entrada.nextLine();
 		matricula = cadena.substring(0, 7);
 		fechaIn = cadena.substring(19, 24);

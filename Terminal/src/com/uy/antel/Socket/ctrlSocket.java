@@ -30,6 +30,8 @@ import org.xml.sax.SAXException;
 
 import com.uy.antel.xml.AltaTicket.*;
 import com.uy.antel.xml.DataTicket.XmlDataTicket;
+import com.uy.antel.xml.Login.XmlLogin;
+import com.uy.antel.xml.Login.ObjectFactory;
 
 public class ctrlSocket {
 	Socket socket;
@@ -48,6 +50,45 @@ public class ctrlSocket {
 	public ctrlSocket() {
 
 	}
+	
+	/**
+	 * @param usuario
+	 * @param pass
+	 */
+	public void Login(String usuario, String pass, Integer idTerminal){
+		try{
+			socket = new Socket("localHost", 8082);
+			out = socket.getOutputStream();
+			in = socket.getInputStream();
+		}catch (UnknownHostException e){
+			System.out.println("Unknown host: localhost");
+			System.exit(1);
+		} catch (IOException e) {
+			System.out.println("No I/O");
+			System.exit(1);
+		}
+		
+		try{
+			com.uy.antel.xml.Login.ObjectFactory factoryLogin = new com.uy.antel.xml.Login.ObjectFactory();
+
+			XmlLogin altaLogin = factoryLogin.createXmlLogin();
+			altaLogin.setUsuario(usuario);
+			altaLogin.setPassword(pass);
+			altaLogin.setNroTerminal(BigInteger.valueOf(idTerminal));
+			
+			JAXBContext context = JAXBContext.newInstance("com.uy.antel.xml.Login");
+
+			Marshaller marshaller = context.createMarshaller();
+
+			marshaller.setProperty("jaxb.formatted.output", Boolean.TRUE);
+
+			marshaller.marshal(altaLogin, out);
+		} catch (JAXBException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
+	
 
 	public void XmlEnvioAltaTicket(String matricula, String fechaIn, Integer duracion) {
 		// Create socket connection
@@ -65,7 +106,7 @@ public class ctrlSocket {
 		}
 
 		try {
-			ObjectFactory factory = new ObjectFactory();
+			com.uy.antel.xml.AltaTicket.ObjectFactory factory = new com.uy.antel.xml.AltaTicket.ObjectFactory();
 
 			XmlAltaTicket altaTicket = factory.createXmlAltaTicket();
 			altaTicket.setCantidadMinutos(BigInteger.valueOf(duracion));
