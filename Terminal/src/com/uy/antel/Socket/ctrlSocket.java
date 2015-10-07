@@ -40,9 +40,9 @@ import com.uy.antel.xml.Login.ObjectFactory;
 public class ctrlSocket {
 	Socket socket;
 	DataInputStream is = null;
-    DataOutputStream os = null;
-	//OutputStream out;
-	//InputStream in;
+	DataOutputStream os = null;
+	// OutputStream out;
+	// InputStream in;
 
 	private static ctrlSocket instance = null;
 
@@ -56,65 +56,18 @@ public class ctrlSocket {
 	public ctrlSocket() {
 
 	}
-	
+
 	/**
 	 * @param usuario
 	 * @param pass
 	 */
-	public void Login(String usuario, String pass, Integer idTerminal){
-		try{
+	public void Login(String usuario, String pass, Integer idTerminal) {
+		try {
 			socket = new Socket("localHost", 8082);
 			is = new DataInputStream(socket.getInputStream());
-            os = new DataOutputStream(socket.getOutputStream());
-			//out = socket.getOutputStream();
-			//in = socket.getInputStream();
-		}catch (UnknownHostException e){
-			System.out.println("Unknown host: localhost");
-			System.exit(1);
-		} catch (IOException e) {
-			System.out.println("No I/O");
-			System.exit(1);
-		}
-		
-		try{
-			com.uy.antel.xml.Login.ObjectFactory factoryLogin = new com.uy.antel.xml.Login.ObjectFactory();
-
-			XmlLogin altaLogin = factoryLogin.createXmlLogin();
-			altaLogin.setUsuario(usuario);
-			altaLogin.setPassword(pass);
-			altaLogin.setNroTerminal(BigInteger.valueOf(idTerminal));
-			
-			JAXBContext context = JAXBContext.newInstance("com.uy.antel.xml.Login");
-
-			Marshaller marshaller = context.createMarshaller();
-
-			marshaller.setProperty("jaxb.formatted.output", Boolean.TRUE);
-			
-			StringWriter writerLog = new StringWriter();
-			marshaller.marshal(altaLogin, writerLog);
-		} catch (JAXBException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-	}
-	
-	public String respuestaLogin(){
-		String respuesta = null;
-		
-		
-		return respuesta;
-	}
-	
-
-	public void XmlEnvioAltaTicket(String matricula, String fechaIn, Integer duracion) {
-		// Create socket connection
-
-		try {
-			socket = new Socket("localhost", 8082);
-			is = new DataInputStream(socket.getInputStream());
-            os = new DataOutputStream(socket.getOutputStream());
-			//out = socket.getOutputStream();
-			//in = socket.getInputStream();
+			os = new DataOutputStream(socket.getOutputStream());
+			// out = socket.getOutputStream();
+			// in = socket.getInputStream();
 		} catch (UnknownHostException e) {
 			System.out.println("Unknown host: localhost");
 			System.exit(1);
@@ -124,6 +77,43 @@ public class ctrlSocket {
 		}
 
 		try {
+			com.uy.antel.xml.Login.ObjectFactory factoryLogin = new com.uy.antel.xml.Login.ObjectFactory();
+
+			XmlLogin altaLogin = factoryLogin.createXmlLogin();
+			altaLogin.setUsuario(usuario);
+			altaLogin.setPassword(pass);
+			altaLogin.setNroTerminal(BigInteger.valueOf(idTerminal));
+
+			JAXBContext context = JAXBContext.newInstance("com.uy.antel.xml.Login");
+
+			Marshaller marshaller = context.createMarshaller();
+
+			marshaller.setProperty("jaxb.formatted.output", Boolean.TRUE);
+
+			StringWriter writerLog = new StringWriter();
+			marshaller.marshal(altaLogin, writerLog);
+		} catch (JAXBException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
+
+	public String respuestaLogin() {
+		String respuesta = null;
+
+		return respuesta;
+	}
+
+	public void XmlEnvioAltaTicket(String matricula, String fechaIn, Integer duracion) {
+		// Create socket connection
+
+		try {
+			socket = new Socket("localhost", 8082);
+			is = new DataInputStream(socket.getInputStream());
+			os = new DataOutputStream(socket.getOutputStream());
+			// out = socket.getOutputStream();
+			// in = socket.getInputStream();
+
 			com.uy.antel.xml.AltaTicket.ObjectFactory factory = new com.uy.antel.xml.AltaTicket.ObjectFactory();
 
 			XmlAltaTicket altaTicket = factory.createXmlAltaTicket();
@@ -141,50 +131,60 @@ public class ctrlSocket {
 			Marshaller marshaller = context.createMarshaller();
 
 			marshaller.setProperty("jaxb.formatted.output", Boolean.TRUE);
-			
+
 			StringWriter writer = new StringWriter();
 			marshaller.marshal(altaTicket, writer);
-			
+			os.writeUTF(writer.toString());
+
 		} catch (JAXBException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
+		} catch (UnknownHostException e) {
+			System.out.println("Unknown host: localhost");
+			System.exit(1);
+		} catch (IOException e) {
+			System.out.println("No I/O");
+			System.exit(1);
 		}
 
 	}
-	
-	public XmlDataTicket recibeDataTicket(){
+
+	public XmlDataTicket recibeDataTicket() {
 		InputStream in = null;
 		OutputStream out = null;
 		XmlDataTicket ticket = null;
-		
+		DataInputStream is = null;
 		try {
-			in = socket.getInputStream();
-			out = socket.getOutputStream();
+//			in = socket.getInputStream();
+//			out = socket.getOutputStream();
+			is = new DataInputStream(socket.getInputStream());
 		} catch (IOException e) {
 			System.out.println("in or out failed");
 			System.exit(-1);
 		}
 
-		try{		
+		try {
 			while (true) {
-			
-	//				SchemaFactory sf = SchemaFactory.newInstance(XMLConstants.W3C_XML_SCHEMA_NS_URI);
-	//				Schema schema;
-	//
-	//				schema = sf.newSchema(new File("src/com/uy/antel/xml/altaTicket.xsd"));
-					JAXBContext jaxbContext;
-					jaxbContext = JAXBContext.newInstance(XmlDataTicket.class);
-					Unmarshaller jaxbUnmarshaller = jaxbContext.createUnmarshaller();
-	//				jaxbUnmarshaller.setSchema(schema);
-					//Hago la conversion de XML -> objeto AltaTicket.
-					ticket = (XmlDataTicket) jaxbUnmarshaller.unmarshal(new StringReader(is.readUTF()));
-					
-					//			} catch (SAXException e) {
-	//				// TODO Auto-generated catch block
-	//				e.printStackTrace();
-			
+
+				// SchemaFactory sf =
+				// SchemaFactory.newInstance(XMLConstants.W3C_XML_SCHEMA_NS_URI);
+				// Schema schema;
+				//
+				// schema = sf.newSchema(new
+				// File("src/com/uy/antel/xml/altaTicket.xsd"));
+				JAXBContext jaxbContext;
+				jaxbContext = JAXBContext.newInstance(XmlDataTicket.class);
+				Unmarshaller jaxbUnmarshaller = jaxbContext.createUnmarshaller();
+				// jaxbUnmarshaller.setSchema(schema);
+				// Hago la conversion de XML -> objeto AltaTicket.
+				ticket = (XmlDataTicket) jaxbUnmarshaller.unmarshal(new StringReader(is.readUTF()));
+
+				// } catch (SAXException e) {
+				// // TODO Auto-generated catch block
+				// e.printStackTrace();
+
 			}
-		}catch (JAXBException e) {
+		} catch (JAXBException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		} catch (IOException e) {
