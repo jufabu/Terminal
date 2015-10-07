@@ -28,7 +28,7 @@ public class Interfaz {
 		Integer idTerminal;
 		String respuestaLogin;
 		
-		System.out.println("Usuario: ");
+		/*System.out.println("Usuario: ");
 		Scanner usuario = new Scanner(System.in);
 		usuarioLogin = usuario.nextLine();
 		System.out.println("Password: ");
@@ -42,7 +42,7 @@ public class Interfaz {
 		
 		if(respuestaLogin == "0"){
 			
-		}
+		}*/
 		
 		
 		/* PIDO QUE INGRESE LOS DATOS */
