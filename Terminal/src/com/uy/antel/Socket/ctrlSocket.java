@@ -89,6 +89,13 @@ public class ctrlSocket {
 		}
 	}
 	
+	public String respuestaLogin(){
+		String respuesta = null;
+		
+		
+		return respuesta;
+	}
+	
 
 	public void XmlEnvioAltaTicket(String matricula, String fechaIn, Integer duracion) {
 		// Create socket connection

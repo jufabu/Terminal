@@ -26,6 +26,7 @@ public class Interfaz {
 		String usuarioLogin;
 		String passLogin;
 		Integer idTerminal;
+		String respuestaLogin;
 		
 		System.out.println("Usuario: ");
 		Scanner usuario = new Scanner(System.in);
@@ -36,6 +37,12 @@ public class Interfaz {
 		idTerminal= 1;
 		ctrlSocket socketLogin = new ctrlSocket();
 		socketLogin.Login(usuarioLogin, passLogin, idTerminal);
+		
+		respuestaLogin = socketLogin.respuestaLogin();
+		
+		if(respuestaLogin == "0"){
+			
+		}
 		
 		
 		/* PIDO QUE INGRESE LOS DATOS */
