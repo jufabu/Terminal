@@ -52,9 +52,11 @@ public class Interfaz {
 		
 		cadena = entrada.nextLine();
 		matricula = cadena.substring(0, 7);
-		fechaIn = cadena.substring(19, 24);
-		fechaIn = fechaIn + " ";
-		fechaIn = fechaIn + cadena.substring(8, 18);
+//		fechaIn = cadena.substring(19, 24);
+//		fechaIn = fechaIn + " ";
+//		fechaIn = fechaIn + cadena.substring(8, 18);
+		fechaIn = cadena.substring(8, 24);
+		System.out.println("Fecha in:"+fechaIn);
 		duracion = Integer.parseInt(cadena.substring(25, cadena.length()));
 		ctrlSocket socket = new ctrlSocket();
 		socket.XmlEnvioAltaTicket(matricula,fechaIn,duracion);

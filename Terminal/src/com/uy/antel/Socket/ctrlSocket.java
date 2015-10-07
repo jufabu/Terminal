@@ -32,6 +32,7 @@ import java.util.Calendar;
 
 import org.xml.sax.SAXException;
 
+import com.uy.antel.util.util;
 import com.uy.antel.xml.AltaTicket.*;
 import com.uy.antel.xml.DataTicket.XmlDataTicket;
 import com.uy.antel.xml.Login.XmlLogin;
@@ -108,7 +109,7 @@ public class ctrlSocket {
 		// Create socket connection
 
 		try {
-			socket = new Socket("localhost", 8082);
+			socket = new Socket(util.getHostServidorTerminal(), util.getPuertoServidorTerminal());
 			is = new DataInputStream(socket.getInputStream());
 			os = new DataOutputStream(socket.getOutputStream());
 			// out = socket.getOutputStream();
@@ -122,6 +123,7 @@ public class ctrlSocket {
 			altaTicket.setFechaHoraInicioEst(fechaIn);
 
 			altaTicket.setMatricula(matricula);
+			altaTicket.setNroTerminal(BigInteger.valueOf(util.getIdTerminal()));
 
 			JAXBContext context = JAXBContext.newInstance("com.uy.antel.xml.AltaTicket");
 
