@@ -2,12 +2,15 @@ package com.uy.antel.Socket;
 
 import java.awt.event.ActionEvent;
 import java.io.BufferedReader;
+import java.io.DataInputStream;
+import java.io.DataOutputStream;
 import java.io.File;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.OutputStream;
 import java.io.InputStream;
 import java.io.PrintWriter;
+import java.io.StringWriter;
 import java.math.BigInteger;
 import java.net.Socket;
 import java.net.UnknownHostException;
@@ -35,8 +38,10 @@ import com.uy.antel.xml.Login.ObjectFactory;
 
 public class ctrlSocket {
 	Socket socket;
-	OutputStream out;
-	InputStream in;
+	DataInputStream is = null;
+    DataOutputStream os = null;
+	//OutputStream out;
+	//InputStream in;
 
 	private static ctrlSocket instance = null;
 
@@ -58,8 +63,10 @@ public class ctrlSocket {
 	public void Login(String usuario, String pass, Integer idTerminal){
 		try{
 			socket = new Socket("localHost", 8082);
-			out = socket.getOutputStream();
-			in = socket.getInputStream();
+			is = new DataInputStream(socket.getInputStream());
+            os = new DataOutputStream(socket.getOutputStream());
+			//out = socket.getOutputStream();
+			//in = socket.getInputStream();
 		}catch (UnknownHostException e){
 			System.out.println("Unknown host: localhost");
 			System.exit(1);
@@ -81,8 +88,9 @@ public class ctrlSocket {
 			Marshaller marshaller = context.createMarshaller();
 
 			marshaller.setProperty("jaxb.formatted.output", Boolean.TRUE);
-
-			marshaller.marshal(altaLogin, out);
+			
+			StringWriter writerLog = new StringWriter();
+			marshaller.marshal(altaLogin, writerLog);
 		} catch (JAXBException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -102,8 +110,10 @@ public class ctrlSocket {
 
 		try {
 			socket = new Socket("localhost", 8082);
-			out = socket.getOutputStream();
-			in = socket.getInputStream();
+			is = new DataInputStream(socket.getInputStream());
+            os = new DataOutputStream(socket.getOutputStream());
+			//out = socket.getOutputStream();
+			//in = socket.getInputStream();
 		} catch (UnknownHostException e) {
 			System.out.println("Unknown host: localhost");
 			System.exit(1);
@@ -130,8 +140,10 @@ public class ctrlSocket {
 			Marshaller marshaller = context.createMarshaller();
 
 			marshaller.setProperty("jaxb.formatted.output", Boolean.TRUE);
-
-			marshaller.marshal(altaTicket, out);
+			
+			StringWriter writer = new StringWriter();
+			marshaller.marshal(altaTicket, writer);
+			
 		} catch (JAXBException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
