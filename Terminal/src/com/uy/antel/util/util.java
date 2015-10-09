@@ -9,22 +9,37 @@ import java.util.Properties;
 
 public class util {
 
-	public static int getPuertoTerminal() {
-		Properties prop = new Properties();
-		try {
-			prop.load(new FileInputStream("propiedades.properties"));
-		} catch (IOException e) {
-		}
-		return Integer.parseInt(prop.get("puertoTerminales").toString());
+	public static int getPuertoServidorTerminal() {
+//		TODO: arreglar estode  sde una properti
+//		Properties prop = new Properties();
+//		try {
+//			prop.load(new FileInputStream("propiedades.properties"));
+//		} catch (IOException e) {
+//		}
+//		return Integer.parseInt(prop.get("puertoTerminales").toString());
+		return 8082;
 	}
 
-	public static String getIdAgencia() {
-		Properties prop = new Properties();
-		try {
-			prop.load(new FileInputStream("propiedades.properties"));
-		} catch (IOException e) {
-		}
-		return prop.get("idAgencia").toString();
+	public static String getHostServidorTerminal() {
+//		TODO: arreglar estode  sde una properti
+//		Properties prop = new Properties();
+//		try {
+//			prop.load(new FileInputStream("propiedades.properties"));
+//		} catch (IOException e) {
+//		}
+//		return Integer.parseInt(prop.get("puertoTerminales").toString());
+		return "localhost";
+	}
+	
+	public static int getIdTerminal() {
+//		TODO: arreglar estode  sde una properti
+//		Properties prop = new Properties();
+//		try {
+//			prop.load(new FileInputStream("propiedades.properties"));
+//		} catch (IOException e) {
+//		}
+//		return prop.get("idAgencia").toString();
+		return 1;
 	}
 
 	public static Date stringToDate(String fechaStr) throws ParseException {
