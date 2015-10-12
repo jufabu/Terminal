@@ -83,7 +83,7 @@ public class ctrlSocket {
 			XmlLogin altaLogin = factoryLogin.createXmlLogin();
 			altaLogin.setUsuario(usuario);
 			altaLogin.setPassword(pass);
-			altaLogin.setNroTerminal(BigInteger.valueOf(idTerminal));
+			altaLogin.setNroTerminal(idTerminal);
 
 			JAXBContext context = JAXBContext.newInstance("com.uy.antel.xml.Login");
 
@@ -118,12 +118,12 @@ public class ctrlSocket {
 			com.uy.antel.xml.AltaTicket.ObjectFactory factory = new com.uy.antel.xml.AltaTicket.ObjectFactory();
 
 			XmlAltaTicket altaTicket = factory.createXmlAltaTicket();
-			altaTicket.setCantidadMinutos(BigInteger.valueOf(duracion));
+			altaTicket.setCantidadMinutos(duracion);
 
 			altaTicket.setFechaHoraInicioEst(fechaIn);
 
 			altaTicket.setMatricula(matricula);
-			altaTicket.setNroTerminal(BigInteger.valueOf(util.getIdTerminal()));
+			altaTicket.setNroTerminal(util.getIdTerminal());
 
 			JAXBContext context = JAXBContext.newInstance("com.uy.antel.xml.AltaTicket");
 

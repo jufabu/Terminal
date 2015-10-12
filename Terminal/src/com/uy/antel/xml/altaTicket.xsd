@@ -19,9 +19,9 @@
 				<xs:element name="matricula" type="matriculaT" nillable="false" />
 				<xs:element name="fechaHoraInicioEst" type="fechaEstT"
 					nillable="false" />
-				<xs:element name="cantidadMinutos" type="xs:positiveInteger"
+				<xs:element name="cantidadMinutos" type="xs:int"
 					nillable="false" />
-				<xs:element name="nroTerminal" type="xs:positiveInteger"
+				<xs:element name="nroTerminal" type="xs:int"
 					nillable="false" />
 			</xs:sequence>
 		</xs:complexType>
