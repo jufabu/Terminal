@@ -166,7 +166,7 @@ public class ctrlSocket {
 		}
 
 		try {
-			while (true) {
+//			while (true) {
 
 				// SchemaFactory sf =
 				// SchemaFactory.newInstance(XMLConstants.W3C_XML_SCHEMA_NS_URI);
@@ -185,7 +185,7 @@ public class ctrlSocket {
 				// // TODO Auto-generated catch block
 				// e.printStackTrace();
 
-			}
+//			}
 		} catch (JAXBException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
