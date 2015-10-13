@@ -1,0 +1,39 @@
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema">
+
+	<xs:simpleType name="operacionT">
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="alta" />
+			<xs:enumeration value="baja" />
+			<xs:enumeration value="exit" />
+		</xs:restriction>
+	</xs:simpleType>
+
+	<xs:element name="xmlRes" nillable="false">
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element name="operacion" type="operacionT" nillable="false" />
+				<xs:element name="xmlRespAltaTicket" nillable="true">
+					<xs:complexType>
+						<xs:sequence>
+							<xs:element name="error" type="xs:int" nillable="false" />
+							<xs:element name="mensaje" type="xs:string" />
+							<xs:element name="importeTotal" type="xs:int" />
+							<xs:element name="nroTicket" type="xs:int" />
+						</xs:sequence>
+					</xs:complexType>
+				</xs:element>
+
+				<xs:element name="xmlRespBajaTicket" nillable="true">
+					<xs:complexType>
+						<xs:sequence>
+							<xs:element name="error" type="xs:int" nillable="false" />
+							<xs:element name="mensaje" type="xs:string" />
+							<xs:element name="importeTotal" type="xs:int" />
+							<xs:element name="nroTicket" type="xs:int" />
+						</xs:sequence>
+					</xs:complexType>
+				</xs:element>
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+</xs:schema> 

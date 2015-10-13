@@ -3,7 +3,8 @@ package com.uy.antel;
 import java.util.Scanner;
 
 import com.uy.antel.Socket.ctrlSocket;
-import com.uy.antel.xml.DataTicket.XmlDataTicket;
+import com.uy.antel.xml.respTicket.XmlRes;
+import com.uy.antel.xml.ticket.OperacionT;
 
 public class Interfaz {
 
@@ -13,7 +14,7 @@ public class Interfaz {
 		String matricula;
 		Integer duracion;
 		String fechaIn;
-		XmlDataTicket ticket;
+		XmlRes ticket;
 		Integer error;
 		String mensaje;
 		Integer idTicket;
@@ -54,16 +55,20 @@ public class Interfaz {
 		socket.XmlEnvioAltaTicket(matricula, fechaIn, duracion);
 
 		ticket = socket.recibeDataTicket();
-		error = ticket.getError();
+		error = ticket.getXmlRespAltaTicket().getError();
 
-		if (error == 0) {
-			mensaje = ticket.getMensaje();
+		if (error == 0 && ticket.getOperacion().toString() == OperacionT.ALTA.toString()) {
+			mensaje = ticket.getXmlRespAltaTicket().getMensaje();
 
 			System.out.println(mensaje);
 			System.out.println("Los datos de su ticket son:");
 			System.out.println(fechaIn);
 			System.out.println(matricula);
 			System.out.println(duracion);
+		}
+		else{
+			
+			System.out.println("Error en la terminal");
 		}
 
 	}

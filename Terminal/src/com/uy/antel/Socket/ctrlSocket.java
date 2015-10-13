@@ -1,42 +1,26 @@
 package com.uy.antel.Socket;
 
-import java.awt.event.ActionEvent;
-import java.io.BufferedReader;
 import java.io.DataInputStream;
 import java.io.DataOutputStream;
-import java.io.File;
 import java.io.IOException;
-import java.io.InputStreamReader;
-import java.io.OutputStream;
 import java.io.InputStream;
-import java.io.PrintWriter;
+import java.io.OutputStream;
 import java.io.StringReader;
 import java.io.StringWriter;
-import java.math.BigInteger;
 import java.net.Socket;
 import java.net.UnknownHostException;
-import java.util.GregorianCalendar;
-import java.util.TimeZone;
 
-import javax.xml.XMLConstants;
 import javax.xml.bind.JAXBContext;
 import javax.xml.bind.JAXBException;
 import javax.xml.bind.Marshaller;
 import javax.xml.bind.Unmarshaller;
-import javax.xml.datatype.DatatypeConfigurationException;
-import javax.xml.datatype.DatatypeFactory;
-import javax.xml.datatype.XMLGregorianCalendar;
-import javax.xml.validation.*;
-
-import java.util.Calendar;
-
-import org.xml.sax.SAXException;
 
 import com.uy.antel.util.util;
-import com.uy.antel.xml.AltaTicket.*;
-import com.uy.antel.xml.DataTicket.XmlDataTicket;
 import com.uy.antel.xml.Login.XmlLogin;
-import com.uy.antel.xml.Login.ObjectFactory;
+import com.uy.antel.xml.respTicket.XmlRes;
+import com.uy.antel.xml.ticket.OperacionT;
+import com.uy.antel.xml.ticket.XmlTicket;
+import com.uy.antel.xml.ticket.XmlTicket.XmlAltaTicket;
 
 public class ctrlSocket {
 	Socket socket;
@@ -115,27 +99,28 @@ public class ctrlSocket {
 			// out = socket.getOutputStream();
 			// in = socket.getInputStream();
 
-			com.uy.antel.xml.AltaTicket.ObjectFactory factory = new com.uy.antel.xml.AltaTicket.ObjectFactory();
+			com.uy.antel.xml.ticket.ObjectFactory factory = new com.uy.antel.xml.ticket.ObjectFactory();
 
-			XmlAltaTicket altaTicket = factory.createXmlAltaTicket();
+			XmlAltaTicket altaTicket = factory.createXmlTicketXmlAltaTicket();
 			altaTicket.setCantidadMinutos(duracion);
 
 			altaTicket.setFechaHoraInicioEst(fechaIn);
 
 			altaTicket.setMatricula(matricula);
 			altaTicket.setNroTerminal(util.getIdTerminal());
+			
+			XmlTicket tick = factory.createXmlTicket();
+			tick.setXmlAltaTicket(altaTicket);
+			tick.setOperacion(OperacionT.ALTA);
 
-			JAXBContext context = JAXBContext.newInstance("com.uy.antel.xml.AltaTicket");
-
-			// JAXBElement<AltaTicket> elemento =
-			// factory.createAltaTicket(altaTicket);
+			JAXBContext context = JAXBContext.newInstance("com.uy.antel.xml.ticket");
 
 			Marshaller marshaller = context.createMarshaller();
 
 			marshaller.setProperty("jaxb.formatted.output", Boolean.TRUE);
 
 			StringWriter writer = new StringWriter();
-			marshaller.marshal(altaTicket, writer);
+			marshaller.marshal(tick, writer);
 			os.writeUTF(writer.toString());
 
 		} catch (JAXBException e) {
@@ -151,14 +136,12 @@ public class ctrlSocket {
 
 	}
 
-	public XmlDataTicket recibeDataTicket() {
+	public XmlRes recibeDataTicket() {
 		InputStream in = null;
 		OutputStream out = null;
-		XmlDataTicket ticket = null;
+		XmlRes resTicket = null;
 		DataInputStream is = null;
 		try {
-//			in = socket.getInputStream();
-//			out = socket.getOutputStream();
 			is = new DataInputStream(socket.getInputStream());
 		} catch (IOException e) {
 			System.out.println("in or out failed");
@@ -166,26 +149,11 @@ public class ctrlSocket {
 		}
 
 		try {
-//			while (true) {
-
-				// SchemaFactory sf =
-				// SchemaFactory.newInstance(XMLConstants.W3C_XML_SCHEMA_NS_URI);
-				// Schema schema;
-				//
-				// schema = sf.newSchema(new
-				// File("src/com/uy/antel/xml/altaTicket.xsd"));
 				JAXBContext jaxbContext;
-				jaxbContext = JAXBContext.newInstance(XmlDataTicket.class);
+				jaxbContext = JAXBContext.newInstance(XmlRes.class);
 				Unmarshaller jaxbUnmarshaller = jaxbContext.createUnmarshaller();
-				// jaxbUnmarshaller.setSchema(schema);
-				// Hago la conversion de XML -> objeto AltaTicket.
-				ticket = (XmlDataTicket) jaxbUnmarshaller.unmarshal(new StringReader(is.readUTF()));
-
-				// } catch (SAXException e) {
-				// // TODO Auto-generated catch block
-				// e.printStackTrace();
-
-//			}
+				// Hago la conversion de XML -> objeto XMLRes.
+				resTicket = (XmlRes) jaxbUnmarshaller.unmarshal(new StringReader(is.readUTF()));
 		} catch (JAXBException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -193,7 +161,7 @@ public class ctrlSocket {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		return ticket;
+		return resTicket;
 	}
 
 }

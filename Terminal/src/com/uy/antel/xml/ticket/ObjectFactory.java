@@ -2,11 +2,11 @@
 // Este archivo ha sido generado por la arquitectura JavaTM para la implantación de la referencia de enlace (JAXB) XML v2.2.8-b130911.1802 
 // Visite <a href="http://java.sun.com/xml/jaxb">http://java.sun.com/xml/jaxb</a> 
 // Todas las modificaciones realizadas en este archivo se perderán si se vuelve a compilar el esquema de origen. 
-// Generado el: 2015.10.13 a las 11:12:33 AM UYST 
+// Generado el: 2015.10.13 a las 04:07:03 PM UYST 
 //
 
 
-package com.uy.antel.xml.AltaTicket;
+package com.uy.antel.xml.ticket;
 
 import javax.xml.bind.annotation.XmlRegistry;
 
@@ -14,7 +14,7 @@ import javax.xml.bind.annotation.XmlRegistry;
 /**
  * This object contains factory methods for each 
  * Java content interface and Java element interface 
- * generated in the com.uy.antel.xml.AltaTicket package. 
+ * generated in the com.uy.antel.xml.ticket package. 
  * <p>An ObjectFactory allows you to programatically 
  * construct new instances of the Java representation 
  * for XML content. The Java representation of XML 
@@ -30,18 +30,34 @@ public class ObjectFactory {
 
 
     /**
-     * Create a new ObjectFactory that can be used to create new instances of schema derived classes for package: com.uy.antel.xml.AltaTicket
+     * Create a new ObjectFactory that can be used to create new instances of schema derived classes for package: com.uy.antel.xml.ticket
      * 
      */
     public ObjectFactory() {
     }
 
     /**
-     * Create an instance of {@link XmlAltaTicket }
+     * Create an instance of {@link XmlTicket }
      * 
      */
-    public XmlAltaTicket createXmlAltaTicket() {
-        return new XmlAltaTicket();
+    public XmlTicket createXmlTicket() {
+        return new XmlTicket();
+    }
+
+    /**
+     * Create an instance of {@link XmlTicket.XmlAltaTicket }
+     * 
+     */
+    public XmlTicket.XmlAltaTicket createXmlTicketXmlAltaTicket() {
+        return new XmlTicket.XmlAltaTicket();
+    }
+
+    /**
+     * Create an instance of {@link XmlTicket.XmlBajaTicket }
+     * 
+     */
+    public XmlTicket.XmlBajaTicket createXmlTicketXmlBajaTicket() {
+        return new XmlTicket.XmlBajaTicket();
     }
 
 }

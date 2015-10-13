@@ -13,7 +13,7 @@
 	</xs:simpleType>
 
 
-	<xs:element name="xmlAltaTicket" nillable="false">
+	<xs:element name="xmlAltaTicket" nillable="true">
 		<xs:complexType>
 			<xs:sequence>
 				<xs:element name="matricula" type="matriculaT" nillable="false" />
@@ -21,12 +21,17 @@
 					nillable="false" />
 				<xs:element name="cantidadMinutos" type="xs:int"
 					nillable="false" />
-				<xs:element name="nroTerminal" type="xs:int"
-					nillable="false" />
+				<xs:element name="nroTerminal" type="xs:int" nillable="false" />
 			</xs:sequence>
 		</xs:complexType>
 	</xs:element>
 
-
-
+	<xs:element name="xmlBajaTicket" nillable="true">
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element name="nroTicket" type="xs:int" nillable="false" />
+				<xs:element name="nroTerminal" type="xs:int" nillable="false" />
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
 </xs:schema> 
