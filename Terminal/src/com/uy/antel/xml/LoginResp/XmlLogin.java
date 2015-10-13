@@ -2,11 +2,11 @@
 // Este archivo ha sido generado por la arquitectura JavaTM para la implantación de la referencia de enlace (JAXB) XML v2.2.8-b130911.1802 
 // Visite <a href="http://java.sun.com/xml/jaxb">http://java.sun.com/xml/jaxb</a> 
 // Todas las modificaciones realizadas en este archivo se perderán si se vuelve a compilar el esquema de origen. 
-// Generado el: 2015.10.13 a las 11:13:08 AM UYST 
+// Generado el: 2015.10.13 a las 11:14:17 AM UYST 
 //
 
 
-package com.uy.antel.xml.DataTicket;
+package com.uy.antel.xml.LoginResp;
 
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
@@ -27,8 +27,6 @@ import javax.xml.bind.annotation.XmlType;
  *       &lt;sequence>
  *         &lt;element name="error" type="{http://www.w3.org/2001/XMLSchema}int"/>
  *         &lt;element name="mensaje" type="{http://www.w3.org/2001/XMLSchema}string"/>
- *         &lt;element name="importeTotal" type="{http://www.w3.org/2001/XMLSchema}int"/>
- *         &lt;element name="nroTicket" type="{http://www.w3.org/2001/XMLSchema}int"/>
  *       &lt;/sequence>
  *     &lt;/restriction>
  *   &lt;/complexContent>
@@ -40,18 +38,14 @@ import javax.xml.bind.annotation.XmlType;
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlType(name = "", propOrder = {
     "error",
-    "mensaje",
-    "importeTotal",
-    "nroTicket"
+    "mensaje"
 })
-@XmlRootElement(name = "xmlDataTicket")
-public class XmlDataTicket {
+@XmlRootElement(name = "xmlLogin")
+public class XmlLogin {
 
     protected int error;
     @XmlElement(required = true)
     protected String mensaje;
-    protected int importeTotal;
-    protected int nroTicket;
 
     /**
      * Obtiene el valor de la propiedad error.
@@ -91,38 +85,6 @@ public class XmlDataTicket {
      */
     public void setMensaje(String value) {
         this.mensaje = value;
-    }
-
-    /**
-     * Obtiene el valor de la propiedad importeTotal.
-     * 
-     */
-    public int getImporteTotal() {
-        return importeTotal;
-    }
-
-    /**
-     * Define el valor de la propiedad importeTotal.
-     * 
-     */
-    public void setImporteTotal(int value) {
-        this.importeTotal = value;
-    }
-
-    /**
-     * Obtiene el valor de la propiedad nroTicket.
-     * 
-     */
-    public int getNroTicket() {
-        return nroTicket;
-    }
-
-    /**
-     * Define el valor de la propiedad nroTicket.
-     * 
-     */
-    public void setNroTicket(int value) {
-        this.nroTicket = value;
     }
 
 }
