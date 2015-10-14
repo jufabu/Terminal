@@ -17,6 +17,7 @@ import javax.xml.bind.Unmarshaller;
 
 import com.uy.antel.util.util;
 import com.uy.antel.xml.Login.XmlLogin;
+import com.uy.antel.xml.LoginResp.XmlResLogin;
 import com.uy.antel.xml.respTicket.XmlRes;
 import com.uy.antel.xml.ticket.OperacionT;
 import com.uy.antel.xml.ticket.XmlTicket;
@@ -46,7 +47,7 @@ public class ctrlSocket {
 	 * @param usuario
 	 * @param pass
 	 */
-	public void Login(String usuario, String pass, Integer idTerminal) {
+	public void Login(String usuario, String pass, int idTerminal) {
 		try {
 			socket = new Socket("localHost", 8082);
 			is = new DataInputStream(socket.getInputStream());
@@ -83,10 +84,33 @@ public class ctrlSocket {
 		}
 	}
 
-	public String respuestaLogin() {
-		String respuesta = null;
+	public XmlResLogin respuestaLogin() {
+		InputStream in = null;
+		OutputStream out = null;
+		XmlResLogin resLogin = null;
+		DataInputStream is = null;
+		try {
+			is = new DataInputStream(socket.getInputStream());
+		} catch (IOException e) {
+			System.out.println("in or out failed");
+			System.exit(-1);
+		}
 
-		return respuesta;
+		try {
+				JAXBContext jaxbContext;
+				jaxbContext = JAXBContext.newInstance(XmlRes.class);
+				Unmarshaller jaxbUnmarshaller = jaxbContext.createUnmarshaller();
+				// Hago la conversion de XML -> objeto XMLRes.
+				resLogin = (XmlResLogin) jaxbUnmarshaller.unmarshal(new StringReader(is.readUTF()));
+		} catch (JAXBException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		//return resTicket;
+		return resLogin;
 	}
 
 	public void XmlEnvioAltaTicket(String matricula, String fechaIn, Integer duracion) {

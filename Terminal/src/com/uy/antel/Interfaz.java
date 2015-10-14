@@ -3,6 +3,7 @@ package com.uy.antel;
 import java.util.Scanner;
 
 import com.uy.antel.Socket.ctrlSocket;
+import com.uy.antel.xml.LoginResp.XmlResLogin;
 import com.uy.antel.xml.respTicket.XmlRes;
 import com.uy.antel.xml.ticket.OperacionT;
 
@@ -20,23 +21,32 @@ public class Interfaz {
 		Integer idTicket;
 		String usuarioLogin;
 		String passLogin;
-		Integer idTerminal;
-		String respuestaLogin;
-
-		/*
-		 * System.out.println("Usuario: "); Scanner usuario = new
-		 * Scanner(System.in); usuarioLogin = usuario.nextLine();
-		 * System.out.println("Password: "); Scanner pass = new
-		 * Scanner(System.in); passLogin = pass.nextLine(); idTerminal= 1;
-		 * ctrlSocket socketLogin = new ctrlSocket();
-		 * socketLogin.Login(usuarioLogin, passLogin, idTerminal);
-		 * 
-		 * respuestaLogin = socketLogin.respuestaLogin();
-		 * 
-		 * if(respuestaLogin == "0"){
-		 * 
-		 * }
-		 */
+		int idTerminal;
+		XmlResLogin resLogin;
+		Integer errorLogin = 0;
+		
+		while(errorLogin == 0){
+		  System.out.println("Usuario: ");
+		  Scanner usuario = new Scanner(System.in);
+		  usuarioLogin = usuario.nextLine();
+		  System.out.println("Password: ");
+		  Scanner pass = new Scanner(System.in);
+		  passLogin = pass.nextLine();
+		  System.out.println("Ingrese numero de Terminal: ");
+		  Scanner terminal = new Scanner(System.in);
+		  idTerminal = Integer.parseInt(terminal.nextLine());
+		  ctrlSocket socketLogin = new ctrlSocket();
+		  socketLogin.Login(usuarioLogin, passLogin, idTerminal);
+		  
+		  resLogin = socketLogin.respuestaLogin();
+		  errorLogin = resLogin.getError();
+		  
+		  if(errorLogin == 0){
+			  System.out.println("Se ha logueado correctamente.");
+		  }else{
+			  System.out.println("Error al loguearse.");
+		  }
+		} 
 
 		/* PIDO QUE INGRESE LOS DATOS */
 		System.out.println("Ingrese los datos en el siguente orden");
@@ -45,9 +55,6 @@ public class Interfaz {
 
 		cadena = entrada.nextLine();
 		matricula = cadena.substring(0, 7);
-		// fechaIn = cadena.substring(19, 24);
-		// fechaIn = fechaIn + " ";
-		// fechaIn = fechaIn + cadena.substring(8, 18);
 		fechaIn = cadena.substring(8, 24);
 		System.out.println("Fecha in:" + fechaIn);
 		duracion = Integer.parseInt(cadena.substring(25, cadena.length()));

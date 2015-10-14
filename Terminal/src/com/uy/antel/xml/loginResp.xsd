@@ -1,5 +1,5 @@
 <xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema">
-	<xs:element name="xmlLogin" nillable="false">
+	<xs:element name="xmlResLogin" nillable="false">
 		<xs:complexType>
 			<xs:sequence>
 				<xs:element name="error" type="xs:int" nillable="false" />
