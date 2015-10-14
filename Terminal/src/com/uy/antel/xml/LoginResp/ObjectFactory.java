@@ -1,8 +1,8 @@
 //
-// Este archivo ha sido generado por la arquitectura JavaTM para la implantación de la referencia de enlace (JAXB) XML v2.2.11 
+// Este archivo ha sido generado por la arquitectura JavaTM para la implantación de la referencia de enlace (JAXB) XML v2.2.8-b130911.1802 
 // Visite <a href="http://java.sun.com/xml/jaxb">http://java.sun.com/xml/jaxb</a> 
 // Todas las modificaciones realizadas en este archivo se perderán si se vuelve a compilar el esquema de origen. 
-// Generado el: 2015.10.13 a las 08:47:36 PM ART 
+// Generado el: 2015.10.14 a las 12:36:38 AM GMT-03:00 
 //
 
 
@@ -37,11 +37,11 @@ public class ObjectFactory {
     }
 
     /**
-     * Create an instance of {@link XmlResLogin }
+     * Create an instance of {@link XmlLoginResp }
      * 
      */
-    public XmlResLogin createXmlResLogin() {
-        return new XmlResLogin();
+    public XmlLoginResp createXmlLoginResp() {
+        return new XmlLoginResp();
     }
 
 }

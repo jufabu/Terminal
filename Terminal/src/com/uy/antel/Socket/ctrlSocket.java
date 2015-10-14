@@ -17,7 +17,7 @@ import javax.xml.bind.Unmarshaller;
 
 import com.uy.antel.util.util;
 import com.uy.antel.xml.Login.XmlLogin;
-import com.uy.antel.xml.LoginResp.XmlResLogin;
+import com.uy.antel.xml.LoginResp.XmlLoginResp;
 import com.uy.antel.xml.respTicket.XmlRes;
 import com.uy.antel.xml.ticket.OperacionT;
 import com.uy.antel.xml.ticket.XmlTicket;
@@ -40,20 +40,10 @@ public class ctrlSocket {
 	}
 
 	public ctrlSocket() {
-
-	}
-
-	/**
-	 * @param usuario
-	 * @param pass
-	 */
-	public void Login(String usuario, String pass, int idTerminal) {
 		try {
 			socket = new Socket("localHost", 8082);
 			is = new DataInputStream(socket.getInputStream());
 			os = new DataOutputStream(socket.getOutputStream());
-			// out = socket.getOutputStream();
-			// in = socket.getInputStream();
 		} catch (UnknownHostException e) {
 			System.out.println("Unknown host: localhost");
 			System.exit(1);
@@ -61,6 +51,14 @@ public class ctrlSocket {
 			System.out.println("No I/O");
 			System.exit(1);
 		}
+	}
+
+	/**
+	 * @param usuario
+	 * @param pass
+	 */
+	public void Login(String usuario, String pass, int idTerminal) {
+		
 
 		try {
 			com.uy.antel.xml.Login.ObjectFactory factoryLogin = new com.uy.antel.xml.Login.ObjectFactory();
@@ -88,10 +86,10 @@ public class ctrlSocket {
 		}
 	}
 
-	public XmlResLogin respuestaLogin() {
-		InputStream in = null;
-		OutputStream out = null;
-		XmlResLogin resLogin = null;
+	public XmlLoginResp respuestaLogin() {
+//		InputStream in = null;
+//		OutputStream out = null;
+		XmlLoginResp resLogin = null;
 		DataInputStream is = null;
 		try {
 			is = new DataInputStream(socket.getInputStream());
@@ -102,10 +100,10 @@ public class ctrlSocket {
 
 		try {
 				JAXBContext jaxbContext;
-				jaxbContext = JAXBContext.newInstance(XmlRes.class);
+				jaxbContext = JAXBContext.newInstance(XmlLoginResp.class);
 				Unmarshaller jaxbUnmarshaller = jaxbContext.createUnmarshaller();
 				// Hago la conversion de XML -> objeto XMLRes.
-				resLogin = (XmlResLogin) jaxbUnmarshaller.unmarshal(new StringReader(is.readUTF()));
+				resLogin = (XmlLoginResp) jaxbUnmarshaller.unmarshal(new StringReader(is.readUTF()));
 		} catch (JAXBException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -121,12 +119,6 @@ public class ctrlSocket {
 		// Create socket connection
 
 		try {
-			socket = new Socket(util.getHostServidorTerminal(), util.getPuertoServidorTerminal());
-			is = new DataInputStream(socket.getInputStream());
-			os = new DataOutputStream(socket.getOutputStream());
-			// out = socket.getOutputStream();
-			// in = socket.getInputStream();
-
 			com.uy.antel.xml.ticket.ObjectFactory factory = new com.uy.antel.xml.ticket.ObjectFactory();
 
 			XmlAltaTicket altaTicket = factory.createXmlTicketXmlAltaTicket();

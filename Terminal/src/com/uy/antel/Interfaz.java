@@ -3,7 +3,7 @@ package com.uy.antel;
 import java.util.Scanner;
 
 import com.uy.antel.Socket.ctrlSocket;
-import com.uy.antel.xml.LoginResp.XmlResLogin;
+import com.uy.antel.xml.LoginResp.XmlLoginResp;
 import com.uy.antel.xml.respTicket.XmlRes;
 import com.uy.antel.xml.ticket.OperacionT;
 
@@ -22,62 +22,56 @@ public class Interfaz {
 		String usuarioLogin;
 		String passLogin;
 		int idTerminal;
-		XmlResLogin resLogin;
-		Integer errorLogin = 0;
-		
-		while(errorLogin == 0){
-		  System.out.println("Usuario: ");
-		  Scanner usuario = new Scanner(System.in);
-		  usuarioLogin = usuario.nextLine();
-		  System.out.println("Password: ");
-		  Scanner pass = new Scanner(System.in);
-		  passLogin = pass.nextLine();
-		  System.out.println("Ingrese numero de Terminal: ");
-		  Scanner terminal = new Scanner(System.in);
-		  idTerminal = Integer.parseInt(terminal.nextLine());
-		  ctrlSocket socketLogin = new ctrlSocket();
-		  socketLogin.Login(usuarioLogin, passLogin, idTerminal);
-		  
-		  resLogin = socketLogin.respuestaLogin();
-		  errorLogin = resLogin.getError();
-		  
-		  if(errorLogin == 0){
-			  System.out.println("Se ha logueado correctamente.");
-		  }else{
-			  System.out.println("Error al loguearse.");
-		  }
-		} 
+		XmlLoginResp resLogin;
+		Integer errorLogin = 1;
+		ctrlSocket socket = ctrlSocket.getInstance();
+		while (!(errorLogin == 0)) {
+			System.out.println("Usuario: ");
+			Scanner usuario = new Scanner(System.in);
+			usuarioLogin = usuario.nextLine();
+			System.out.println("Password: ");
+			Scanner pass = new Scanner(System.in);
+			passLogin = pass.nextLine();
+			System.out.println("Ingrese numero de Terminal: ");
+			Scanner terminal = new Scanner(System.in);
+			idTerminal = Integer.parseInt(terminal.nextLine());
+			socket.Login(usuarioLogin, passLogin, idTerminal);
+			resLogin = socket.respuestaLogin();
+			errorLogin = resLogin.getError();
 
-		/* PIDO QUE INGRESE LOS DATOS */
-		System.out.println("Ingrese los datos en el siguente orden");
-		System.out.println("Matricula fechaInicio(yyyy-MM-dd_HH:mm) duracion(min)");
-		Scanner entrada = new Scanner(System.in);
-
-		cadena = entrada.nextLine();
-		matricula = cadena.substring(0, 7);
-		fechaIn = cadena.substring(8, 24);
-		System.out.println("Fecha in:" + fechaIn);
-		duracion = Integer.parseInt(cadena.substring(25, cadena.length()));
-		ctrlSocket socket = new ctrlSocket();
-		socket.XmlEnvioAltaTicket(matricula, fechaIn, duracion);
-
-		ticket = socket.recibeDataTicket();
-		error = ticket.getXmlRespAltaTicket().getError();
-
-		if (error == 0 && ticket.getOperacion().toString() == OperacionT.ALTA.toString()) {
-			mensaje = ticket.getXmlRespAltaTicket().getMensaje();
-
-			System.out.println(mensaje);
-			System.out.println("Los datos de su ticket son:");
-			System.out.println(fechaIn);
-			System.out.println(matricula);
-			System.out.println(duracion);
+			if (errorLogin == 0) {
+				System.out.println("Se ha logueado correctamente.");
+			} else {
+				System.out.println("Error al loguearse.");
+			}
 		}
-		else{
-			
-			System.out.println("Error en la terminal");
-		}
+		while (true) {
+			/* PIDO QUE INGRESE LOS DATOS */
+			System.out.println("Ingrese los datos en el siguente orden");
+			System.out.println("Matricula fechaInicio(yyyy-MM-dd_HH:mm) duracion(min)");
+			Scanner entrada = new Scanner(System.in);
 
+			cadena = entrada.nextLine();
+			matricula = cadena.substring(0, 7);
+			fechaIn = cadena.substring(8, 24);
+			duracion = Integer.parseInt(cadena.substring(25, cadena.length()));
+			socket.XmlEnvioAltaTicket(matricula, fechaIn, duracion);
+
+			ticket = socket.recibeDataTicket();
+			error = ticket.getXmlRespAltaTicket().getError();
+
+			if (error == 0 && ticket.getOperacion().toString() == OperacionT.ALTA.toString()) {
+				mensaje = ticket.getXmlRespAltaTicket().getMensaje();
+				System.out.println(mensaje);
+				System.out.println("Importe a pagar: " + ticket.getXmlRespAltaTicket().getImporteTotal());
+				System.out.println("NroTicket: " + ticket.getXmlRespAltaTicket().getNroTicket());
+				
+				
+			} else {
+
+				System.out.println("Error en la terminal");
+			}
+		}
 	}
 
 	/*
