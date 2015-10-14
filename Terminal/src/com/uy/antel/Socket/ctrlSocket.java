@@ -78,7 +78,11 @@ public class ctrlSocket {
 
 			StringWriter writerLog = new StringWriter();
 			marshaller.marshal(altaLogin, writerLog);
+			os.writeUTF(writerLog.toString());
 		} catch (JAXBException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
