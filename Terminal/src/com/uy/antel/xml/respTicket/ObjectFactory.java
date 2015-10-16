@@ -2,7 +2,7 @@
 // Este archivo ha sido generado por la arquitectura JavaTM para la implantación de la referencia de enlace (JAXB) XML v2.2.8-b130911.1802 
 // Visite <a href="http://java.sun.com/xml/jaxb">http://java.sun.com/xml/jaxb</a> 
 // Todas las modificaciones realizadas en este archivo se perderán si se vuelve a compilar el esquema de origen. 
-// Generado el: 2015.10.13 a las 06:35:00 PM GMT-03:00 
+// Generado el: 2015.10.15 a las 11:26:34 PM GMT-03:00 
 //
 
 
@@ -53,11 +53,11 @@ public class ObjectFactory {
     }
 
     /**
-     * Create an instance of {@link XmlRes.XmlRespBajaTicket }
+     * Create an instance of {@link XmlRes.XmlRespCancelacionTicket }
      * 
      */
-    public XmlRes.XmlRespBajaTicket createXmlResXmlRespBajaTicket() {
-        return new XmlRes.XmlRespBajaTicket();
+    public XmlRes.XmlRespCancelacionTicket createXmlResXmlRespCancelacionTicket() {
+        return new XmlRes.XmlRespCancelacionTicket();
     }
 
 }

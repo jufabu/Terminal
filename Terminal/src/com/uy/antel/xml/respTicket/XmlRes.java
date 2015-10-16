@@ -2,7 +2,7 @@
 // Este archivo ha sido generado por la arquitectura JavaTM para la implantación de la referencia de enlace (JAXB) XML v2.2.8-b130911.1802 
 // Visite <a href="http://java.sun.com/xml/jaxb">http://java.sun.com/xml/jaxb</a> 
 // Todas las modificaciones realizadas en este archivo se perderán si se vuelve a compilar el esquema de origen. 
-// Generado el: 2015.10.13 a las 06:35:00 PM GMT-03:00 
+// Generado el: 2015.10.15 a las 11:26:34 PM GMT-03:00 
 //
 
 
@@ -41,7 +41,7 @@ import javax.xml.bind.annotation.XmlType;
  *             &lt;/complexContent>
  *           &lt;/complexType>
  *         &lt;/element>
- *         &lt;element name="xmlRespBajaTicket">
+ *         &lt;element name="xmlRespCancelacionTicket">
  *           &lt;complexType>
  *             &lt;complexContent>
  *               &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType">
@@ -65,7 +65,7 @@ import javax.xml.bind.annotation.XmlType;
 @XmlType(name = "", propOrder = {
     "operacion",
     "xmlRespAltaTicket",
-    "xmlRespBajaTicket"
+    "xmlRespCancelacionTicket"
 })
 @XmlRootElement(name = "xmlRes")
 public class XmlRes {
@@ -76,7 +76,7 @@ public class XmlRes {
     @XmlElement(required = true, nillable = true)
     protected XmlRes.XmlRespAltaTicket xmlRespAltaTicket;
     @XmlElement(required = true, nillable = true)
-    protected XmlRes.XmlRespBajaTicket xmlRespBajaTicket;
+    protected XmlRes.XmlRespCancelacionTicket xmlRespCancelacionTicket;
 
     /**
      * Obtiene el valor de la propiedad operacion.
@@ -127,27 +127,27 @@ public class XmlRes {
     }
 
     /**
-     * Obtiene el valor de la propiedad xmlRespBajaTicket.
+     * Obtiene el valor de la propiedad xmlRespCancelacionTicket.
      * 
      * @return
      *     possible object is
-     *     {@link XmlRes.XmlRespBajaTicket }
+     *     {@link XmlRes.XmlRespCancelacionTicket }
      *     
      */
-    public XmlRes.XmlRespBajaTicket getXmlRespBajaTicket() {
-        return xmlRespBajaTicket;
+    public XmlRes.XmlRespCancelacionTicket getXmlRespCancelacionTicket() {
+        return xmlRespCancelacionTicket;
     }
 
     /**
-     * Define el valor de la propiedad xmlRespBajaTicket.
+     * Define el valor de la propiedad xmlRespCancelacionTicket.
      * 
      * @param value
      *     allowed object is
-     *     {@link XmlRes.XmlRespBajaTicket }
+     *     {@link XmlRes.XmlRespCancelacionTicket }
      *     
      */
-    public void setXmlRespBajaTicket(XmlRes.XmlRespBajaTicket value) {
-        this.xmlRespBajaTicket = value;
+    public void setXmlRespCancelacionTicket(XmlRes.XmlRespCancelacionTicket value) {
+        this.xmlRespCancelacionTicket = value;
     }
 
 
@@ -288,7 +288,7 @@ public class XmlRes {
         "error",
         "mensaje"
     })
-    public static class XmlRespBajaTicket {
+    public static class XmlRespCancelacionTicket {
 
         protected int error;
         @XmlElement(required = true)

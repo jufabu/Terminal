@@ -2,7 +2,7 @@
 // Este archivo ha sido generado por la arquitectura JavaTM para la implantación de la referencia de enlace (JAXB) XML v2.2.8-b130911.1802 
 // Visite <a href="http://java.sun.com/xml/jaxb">http://java.sun.com/xml/jaxb</a> 
 // Todas las modificaciones realizadas en este archivo se perderán si se vuelve a compilar el esquema de origen. 
-// Generado el: 2015.10.13 a las 04:07:03 PM UYST 
+// Generado el: 2015.10.15 a las 11:26:01 PM GMT-03:00 
 //
 
 
@@ -35,19 +35,17 @@ import javax.xml.bind.annotation.XmlType;
  *                   &lt;element name="matricula" type="{}matriculaT"/>
  *                   &lt;element name="fechaHoraInicioEst" type="{}fechaEstT"/>
  *                   &lt;element name="cantidadMinutos" type="{http://www.w3.org/2001/XMLSchema}int"/>
- *                   &lt;element name="nroTerminal" type="{http://www.w3.org/2001/XMLSchema}int"/>
  *                 &lt;/sequence>
  *               &lt;/restriction>
  *             &lt;/complexContent>
  *           &lt;/complexType>
  *         &lt;/element>
- *         &lt;element name="xmlBajaTicket">
+ *         &lt;element name="xmlCancelacionTicket">
  *           &lt;complexType>
  *             &lt;complexContent>
  *               &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType">
  *                 &lt;sequence>
  *                   &lt;element name="nroTicket" type="{http://www.w3.org/2001/XMLSchema}int"/>
- *                   &lt;element name="nroTerminal" type="{http://www.w3.org/2001/XMLSchema}int"/>
  *                 &lt;/sequence>
  *               &lt;/restriction>
  *             &lt;/complexContent>
@@ -65,7 +63,7 @@ import javax.xml.bind.annotation.XmlType;
 @XmlType(name = "", propOrder = {
     "operacion",
     "xmlAltaTicket",
-    "xmlBajaTicket"
+    "xmlCancelacionTicket"
 })
 @XmlRootElement(name = "xmlTicket")
 public class XmlTicket {
@@ -76,7 +74,7 @@ public class XmlTicket {
     @XmlElement(required = true, nillable = true)
     protected XmlTicket.XmlAltaTicket xmlAltaTicket;
     @XmlElement(required = true, nillable = true)
-    protected XmlTicket.XmlBajaTicket xmlBajaTicket;
+    protected XmlTicket.XmlCancelacionTicket xmlCancelacionTicket;
 
     /**
      * Obtiene el valor de la propiedad operacion.
@@ -127,27 +125,27 @@ public class XmlTicket {
     }
 
     /**
-     * Obtiene el valor de la propiedad xmlBajaTicket.
+     * Obtiene el valor de la propiedad xmlCancelacionTicket.
      * 
      * @return
      *     possible object is
-     *     {@link XmlTicket.XmlBajaTicket }
+     *     {@link XmlTicket.XmlCancelacionTicket }
      *     
      */
-    public XmlTicket.XmlBajaTicket getXmlBajaTicket() {
-        return xmlBajaTicket;
+    public XmlTicket.XmlCancelacionTicket getXmlCancelacionTicket() {
+        return xmlCancelacionTicket;
     }
 
     /**
-     * Define el valor de la propiedad xmlBajaTicket.
+     * Define el valor de la propiedad xmlCancelacionTicket.
      * 
      * @param value
      *     allowed object is
-     *     {@link XmlTicket.XmlBajaTicket }
+     *     {@link XmlTicket.XmlCancelacionTicket }
      *     
      */
-    public void setXmlBajaTicket(XmlTicket.XmlBajaTicket value) {
-        this.xmlBajaTicket = value;
+    public void setXmlCancelacionTicket(XmlTicket.XmlCancelacionTicket value) {
+        this.xmlCancelacionTicket = value;
     }
 
 
@@ -164,7 +162,6 @@ public class XmlTicket {
      *         &lt;element name="matricula" type="{}matriculaT"/>
      *         &lt;element name="fechaHoraInicioEst" type="{}fechaEstT"/>
      *         &lt;element name="cantidadMinutos" type="{http://www.w3.org/2001/XMLSchema}int"/>
-     *         &lt;element name="nroTerminal" type="{http://www.w3.org/2001/XMLSchema}int"/>
      *       &lt;/sequence>
      *     &lt;/restriction>
      *   &lt;/complexContent>
@@ -177,8 +174,7 @@ public class XmlTicket {
     @XmlType(name = "", propOrder = {
         "matricula",
         "fechaHoraInicioEst",
-        "cantidadMinutos",
-        "nroTerminal"
+        "cantidadMinutos"
     })
     public static class XmlAltaTicket {
 
@@ -187,7 +183,6 @@ public class XmlTicket {
         @XmlElement(required = true)
         protected String fechaHoraInicioEst;
         protected int cantidadMinutos;
-        protected int nroTerminal;
 
         /**
          * Obtiene el valor de la propiedad matricula.
@@ -253,22 +248,6 @@ public class XmlTicket {
             this.cantidadMinutos = value;
         }
 
-        /**
-         * Obtiene el valor de la propiedad nroTerminal.
-         * 
-         */
-        public int getNroTerminal() {
-            return nroTerminal;
-        }
-
-        /**
-         * Define el valor de la propiedad nroTerminal.
-         * 
-         */
-        public void setNroTerminal(int value) {
-            this.nroTerminal = value;
-        }
-
     }
 
 
@@ -283,7 +262,6 @@ public class XmlTicket {
      *     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType">
      *       &lt;sequence>
      *         &lt;element name="nroTicket" type="{http://www.w3.org/2001/XMLSchema}int"/>
-     *         &lt;element name="nroTerminal" type="{http://www.w3.org/2001/XMLSchema}int"/>
      *       &lt;/sequence>
      *     &lt;/restriction>
      *   &lt;/complexContent>
@@ -294,13 +272,11 @@ public class XmlTicket {
      */
     @XmlAccessorType(XmlAccessType.FIELD)
     @XmlType(name = "", propOrder = {
-        "nroTicket",
-        "nroTerminal"
+        "nroTicket"
     })
-    public static class XmlBajaTicket {
+    public static class XmlCancelacionTicket {
 
         protected int nroTicket;
-        protected int nroTerminal;
 
         /**
          * Obtiene el valor de la propiedad nroTicket.
@@ -316,22 +292,6 @@ public class XmlTicket {
          */
         public void setNroTicket(int value) {
             this.nroTicket = value;
-        }
-
-        /**
-         * Obtiene el valor de la propiedad nroTerminal.
-         * 
-         */
-        public int getNroTerminal() {
-            return nroTerminal;
-        }
-
-        /**
-         * Define el valor de la propiedad nroTerminal.
-         * 
-         */
-        public void setNroTerminal(int value) {
-            this.nroTerminal = value;
         }
 
     }

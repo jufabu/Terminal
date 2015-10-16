@@ -127,7 +127,6 @@ public class ctrlSocket {
 			altaTicket.setFechaHoraInicioEst(fechaIn);
 
 			altaTicket.setMatricula(matricula);
-			altaTicket.setNroTerminal(util.getIdTerminal());
 			
 			XmlTicket tick = factory.createXmlTicket();
 			tick.setXmlAltaTicket(altaTicket);

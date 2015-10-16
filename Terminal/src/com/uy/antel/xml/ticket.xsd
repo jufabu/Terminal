@@ -1,4 +1,5 @@
 <xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema">
+<xs:include schemaLocation="operacionT.xsd"></xs:include> 	
 	<xs:simpleType name="matriculaT">
 		<xs:restriction base="xs:string">
 			<xs:pattern value="([a-z]|[A-Z]){3}[0-9]{4}" />
@@ -11,15 +12,6 @@
 			<!--yyyy-MM-dd_hh:mm -->
 		</xs:restriction>
 	</xs:simpleType>
-
-	<xs:simpleType name="operacionT">
-		<xs:restriction base="xs:string">
-			<xs:enumeration value="alta" />
-			<xs:enumeration value="baja" />
-			<xs:enumeration value="exit" />
-		</xs:restriction>
-	</xs:simpleType>
-
 
 	<xs:element name="xmlTicket" nillable="false">
 		<xs:complexType>
@@ -34,15 +26,13 @@
 								nillable="false" />
 							<xs:element name="cantidadMinutos" type="xs:int"
 								nillable="false" />
-							<xs:element name="nroTerminal" type="xs:int" nillable="false" />
 						</xs:sequence>
 					</xs:complexType>
 				</xs:element>
-				<xs:element name="xmlBajaTicket" nillable="true">
+				<xs:element name="xmlCancelacionTicket" nillable="true">
 					<xs:complexType>
 						<xs:sequence>
 							<xs:element name="nroTicket" type="xs:int" nillable="false" />
-							<xs:element name="nroTerminal" type="xs:int" nillable="false" />
 						</xs:sequence>
 					</xs:complexType>
 				</xs:element>

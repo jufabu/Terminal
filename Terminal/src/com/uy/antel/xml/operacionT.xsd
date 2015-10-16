@@ -1,0 +1,9 @@
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema">
+	<xs:simpleType name="operacionT">
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="alta" />
+			<xs:enumeration value="cancelacion" />
+			<xs:enumeration value="exit" />
+		</xs:restriction>
+	</xs:simpleType>
+</xs:schema>

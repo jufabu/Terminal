@@ -1,13 +1,5 @@
 <xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema">
-
-	<xs:simpleType name="operacionT">
-		<xs:restriction base="xs:string">
-			<xs:enumeration value="alta" />
-			<xs:enumeration value="baja" />
-			<xs:enumeration value="exit" />
-		</xs:restriction>
-	</xs:simpleType>
-
+<xs:include schemaLocation="operacionT.xsd"></xs:include> 
 	<xs:element name="xmlRes" nillable="false">
 		<xs:complexType>
 			<xs:sequence>
@@ -23,7 +15,7 @@
 					</xs:complexType>
 				</xs:element>
 
-				<xs:element name="xmlRespBajaTicket" nillable="true">
+				<xs:element name="xmlRespCancelacionTicket" nillable="true">
 					<xs:complexType>
 						<xs:sequence>
 							<xs:element name="error" type="xs:int" nillable="false" />
