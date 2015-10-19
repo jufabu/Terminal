@@ -22,6 +22,7 @@ import com.uy.antel.xml.respTicket.XmlRes;
 import com.uy.antel.xml.ticket.OperacionT;
 import com.uy.antel.xml.ticket.XmlTicket;
 import com.uy.antel.xml.ticket.XmlTicket.XmlAltaTicket;
+import com.uy.antel.xml.ticket.XmlTicket.XmlCancelacionTicket;
 
 public class ctrlSocket {
 	Socket socket;
@@ -58,7 +59,6 @@ public class ctrlSocket {
 	 * @param pass
 	 */
 	public void Login(String usuario, String pass, int idTerminal) {
-		
 
 		try {
 			com.uy.antel.xml.Login.ObjectFactory factoryLogin = new com.uy.antel.xml.Login.ObjectFactory();
@@ -87,8 +87,8 @@ public class ctrlSocket {
 	}
 
 	public XmlLoginResp respuestaLogin() {
-//		InputStream in = null;
-//		OutputStream out = null;
+		// InputStream in = null;
+		// OutputStream out = null;
 		XmlLoginResp resLogin = null;
 		DataInputStream is = null;
 		try {
@@ -99,11 +99,11 @@ public class ctrlSocket {
 		}
 
 		try {
-				JAXBContext jaxbContext;
-				jaxbContext = JAXBContext.newInstance(XmlLoginResp.class);
-				Unmarshaller jaxbUnmarshaller = jaxbContext.createUnmarshaller();
-				// Hago la conversion de XML -> objeto XMLRes.
-				resLogin = (XmlLoginResp) jaxbUnmarshaller.unmarshal(new StringReader(is.readUTF()));
+			JAXBContext jaxbContext;
+			jaxbContext = JAXBContext.newInstance(XmlLoginResp.class);
+			Unmarshaller jaxbUnmarshaller = jaxbContext.createUnmarshaller();
+			// Hago la conversion de XML -> objeto XMLRes.
+			resLogin = (XmlLoginResp) jaxbUnmarshaller.unmarshal(new StringReader(is.readUTF()));
 		} catch (JAXBException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -111,7 +111,7 @@ public class ctrlSocket {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		//return resTicket;
+		// return resTicket;
 		return resLogin;
 	}
 
@@ -127,7 +127,7 @@ public class ctrlSocket {
 			altaTicket.setFechaHoraInicioEst(fechaIn);
 
 			altaTicket.setMatricula(matricula);
-			
+
 			XmlTicket tick = factory.createXmlTicket();
 			tick.setXmlAltaTicket(altaTicket);
 			tick.setOperacion(OperacionT.ALTA);
@@ -155,9 +155,7 @@ public class ctrlSocket {
 
 	}
 
-	public XmlRes recibeDataTicket() {
-		InputStream in = null;
-		OutputStream out = null;
+	public XmlRes recibeRespuestaAltaCancTicket() {
 		XmlRes resTicket = null;
 		DataInputStream is = null;
 		try {
@@ -168,11 +166,11 @@ public class ctrlSocket {
 		}
 
 		try {
-				JAXBContext jaxbContext;
-				jaxbContext = JAXBContext.newInstance(XmlRes.class);
-				Unmarshaller jaxbUnmarshaller = jaxbContext.createUnmarshaller();
-				// Hago la conversion de XML -> objeto XMLRes.
-				resTicket = (XmlRes) jaxbUnmarshaller.unmarshal(new StringReader(is.readUTF()));
+			JAXBContext jaxbContext;
+			jaxbContext = JAXBContext.newInstance(XmlRes.class);
+			Unmarshaller jaxbUnmarshaller = jaxbContext.createUnmarshaller();
+			// Hago la conversion de XML -> objeto XMLRes.
+			resTicket = (XmlRes) jaxbUnmarshaller.unmarshal(new StringReader(is.readUTF()));
 		} catch (JAXBException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -181,6 +179,42 @@ public class ctrlSocket {
 			e.printStackTrace();
 		}
 		return resTicket;
+	}
+
+	public void XmlEnvioCancelacionTicket(int nroTicket) {
+		// TODO Auto-generated method stub
+		// Create socket connection
+
+		try {
+			com.uy.antel.xml.ticket.ObjectFactory factory = new com.uy.antel.xml.ticket.ObjectFactory();
+
+			XmlCancelacionTicket cancelacionTicket = factory.createXmlTicketXmlCancelacionTicket();
+			cancelacionTicket.setNroTicket(nroTicket);
+			XmlTicket tick = factory.createXmlTicket();
+			tick.setXmlCancelacionTicket(cancelacionTicket);
+			tick.setOperacion(OperacionT.CANCELACION);
+
+			JAXBContext context = JAXBContext.newInstance("com.uy.antel.xml.ticket");
+
+			Marshaller marshaller = context.createMarshaller();
+
+			marshaller.setProperty("jaxb.formatted.output", Boolean.TRUE);
+
+			StringWriter writer = new StringWriter();
+			marshaller.marshal(tick, writer);
+			os.writeUTF(writer.toString());
+
+		} catch (JAXBException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (UnknownHostException e) {
+			System.out.println("Unknown host: localhost");
+			System.exit(1);
+		} catch (IOException e) {
+			System.out.println("No I/O");
+			System.exit(1);
+		}
+
 	}
 
 }

@@ -15,7 +15,7 @@ public class Interfaz {
 		String matricula;
 		Integer duracion;
 		String fechaIn;
-		XmlRes ticket;
+		XmlRes xmlResTicket;
 		Integer error;
 		String mensaje;
 		Integer idTicket;
@@ -64,28 +64,50 @@ public class Interfaz {
 					// Scanner entrada = new Scanner(System.in);
 
 					cadena = entrada.nextLine();
-					matricula = cadena.substring(0, 7);
-					fechaIn = cadena.substring(8, 24);
-					duracion = Integer.parseInt(cadena.substring(25, cadena.length()));
+					String []argumentos = cadena.split(" ");
+					//TODO: validar estas entradas
+					matricula = argumentos[0];
+					fechaIn = argumentos[1];
+					duracion = Integer.parseInt(argumentos[2]);
 					socket.XmlEnvioAltaTicket(matricula, fechaIn, duracion);
 
-					ticket = socket.recibeDataTicket();
-					error = ticket.getXmlRespAltaTicket().getError();
+					xmlResTicket = socket.recibeRespuestaAltaCancTicket();
+					error = xmlResTicket.getXmlRespAltaTicket().getError();
 
-					if (error == 0 && ticket.getOperacion().toString() == OperacionT.ALTA.toString()) {
-						mensaje = ticket.getXmlRespAltaTicket().getMensaje();
+					if (error == 0 && xmlResTicket.getOperacion().toString() == OperacionT.ALTA.toString()) {
+						mensaje = xmlResTicket.getXmlRespAltaTicket().getMensaje();
 						System.out.println(mensaje);
-						System.out.println("Importe a pagar: " + ticket.getXmlRespAltaTicket().getImporteTotal());
-						System.out.println("NroTicket: " + ticket.getXmlRespAltaTicket().getNroTicket());
+						System.out.println("Importe a pagar: " + xmlResTicket.getXmlRespAltaTicket().getImporteTotal());
+						System.out.println("NroTicket: " + xmlResTicket.getXmlRespAltaTicket().getNroTicket());
 
 					} else {
 
-						System.out.println("Error: "+ticket.getXmlRespAltaTicket().getError());
-						System.out.println(ticket.getXmlRespAltaTicket().getMensaje());
+						System.out.println("Error: "+xmlResTicket.getXmlRespAltaTicket().getError());
+						System.out.println(xmlResTicket.getXmlRespAltaTicket().getMensaje());
 					}
 				} else if (2 == Integer.parseInt(cadena)) {
 					// Cancelacion de ticket
-					System.out.println("Falta Implementar");
+					/* PIDO QUE INGRESE LOS DATOS */
+					System.out.println("Ingrese el numero de ticket a cancelar");
+					// Scanner entrada = new Scanner(System.in);
+
+					cadena = entrada.nextLine();
+					//TODO: validar esta entrada
+					int nroTicket = Integer.parseInt(cadena);
+					socket.XmlEnvioCancelacionTicket(nroTicket);
+
+					xmlResTicket = socket.recibeRespuestaAltaCancTicket();
+					error = xmlResTicket.getXmlRespCancelacionTicket().getError();
+
+					if (error == 0 && xmlResTicket.getOperacion().toString() == OperacionT.CANCELACION.toString()) {
+						mensaje = xmlResTicket.getXmlRespCancelacionTicket().getMensaje();
+						System.out.println(mensaje);
+					} else {
+						System.out.println("Error: "+xmlResTicket.getXmlRespCancelacionTicket().getError());
+						System.out.println(xmlResTicket.getXmlRespCancelacionTicket().getMensaje());
+					}
+					
+					
 				} else {
 					System.out.println("Opcion Incorrecta");
 				}
