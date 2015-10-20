@@ -11,7 +11,7 @@ import java.util.regex.Pattern;
 
 public class util {
 	
-	private static String formatoEsperadoFecha = System.getProperty("com.uy.antel.formatoEsperadoFecha");
+	private static String formatoEsperadoFecha = "yyyy-MM-dd_HH:mm";
 
 	public static int getPuertoServidorTerminal() {
 //		TODO: arreglar estode  sde una properti
