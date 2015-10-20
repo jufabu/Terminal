@@ -3,6 +3,7 @@ package com.uy.antel;
 import java.util.Scanner;
 
 import com.uy.antel.Socket.ctrlSocket;
+import com.uy.antel.util.util;
 import com.uy.antel.xml.LoginResp.XmlLoginResp;
 import com.uy.antel.xml.respTicket.XmlRes;
 import com.uy.antel.xml.ticket.OperacionT;
@@ -15,8 +16,8 @@ public class Interfaz {
 		String matricula;
 		Integer duracion;
 		String fechaIn;
-		XmlRes xmlResTicket;
-		Integer error;
+		XmlRes xmlResTicket = null;
+		Integer error = 0;
 		String mensaje;
 		Integer idTicket;
 		String usuarioLogin;
@@ -67,14 +68,17 @@ public class Interfaz {
 					cadena = entrada.nextLine();
 					String []argumentos = cadena.split(" ");
 					//TODO: validar estas entradas
-					matricula = argumentos[0];
-					fechaIn = argumentos[1];
-					duracion = Integer.parseInt(argumentos[2]);
-					socket.XmlEnvioAltaTicket(matricula, fechaIn, duracion);
+					if (util.validarEntradas(argumentos[0], argumentos[1], argumentos[2])){
+						matricula = argumentos[0];
+						fechaIn = argumentos[1];
+						duracion = Integer.parseInt(argumentos[2]);
+						socket.XmlEnvioAltaTicket(matricula, fechaIn, duracion);
 
-					xmlResTicket = socket.recibeRespuestaAltaCancTicket();
-					error = xmlResTicket.getXmlRespAltaTicket().getError();
+						xmlResTicket = socket.recibeRespuestaAltaCancTicket();
+						error = xmlResTicket.getXmlRespAltaTicket().getError();
 
+					}
+					
 					if (error == 0 && xmlResTicket.getOperacion().toString() == OperacionT.ALTA.toString()) {
 						mensaje = xmlResTicket.getXmlRespAltaTicket().getMensaje();
 						System.out.println(mensaje);
@@ -113,6 +117,7 @@ public class Interfaz {
 					
 					System.out.println("Esta seguro que desea salir? S/N");
 					cadena = entrada.nextLine();
+					System.out.println("el valor de la cadena: "+ cadena);
 					if ("S" == cadena){
 						try{
 							socket.XmlExit();
