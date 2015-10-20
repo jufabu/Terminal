@@ -2,7 +2,7 @@
 // Este archivo ha sido generado por la arquitectura JavaTM para la implantación de la referencia de enlace (JAXB) XML v2.2.8-b130911.1802 
 // Visite <a href="http://java.sun.com/xml/jaxb">http://java.sun.com/xml/jaxb</a> 
 // Todas las modificaciones realizadas en este archivo se perderán si se vuelve a compilar el esquema de origen. 
-// Generado el: 2015.10.15 a las 11:26:34 PM GMT-03:00 
+// Generado el: 2015.10.20 a las 06:09:26 PM GMT-03:00 
 //
 
 
@@ -48,6 +48,7 @@ import javax.xml.bind.annotation.XmlType;
  *                 &lt;sequence>
  *                   &lt;element name="error" type="{http://www.w3.org/2001/XMLSchema}int"/>
  *                   &lt;element name="mensaje" type="{http://www.w3.org/2001/XMLSchema}string"/>
+ *                   &lt;element name="nroCancelacion" type="{http://www.w3.org/2001/XMLSchema}int"/>
  *                 &lt;/sequence>
  *               &lt;/restriction>
  *             &lt;/complexContent>
@@ -275,6 +276,7 @@ public class XmlRes {
      *       &lt;sequence>
      *         &lt;element name="error" type="{http://www.w3.org/2001/XMLSchema}int"/>
      *         &lt;element name="mensaje" type="{http://www.w3.org/2001/XMLSchema}string"/>
+     *         &lt;element name="nroCancelacion" type="{http://www.w3.org/2001/XMLSchema}int"/>
      *       &lt;/sequence>
      *     &lt;/restriction>
      *   &lt;/complexContent>
@@ -286,13 +288,15 @@ public class XmlRes {
     @XmlAccessorType(XmlAccessType.FIELD)
     @XmlType(name = "", propOrder = {
         "error",
-        "mensaje"
+        "mensaje",
+        "nroCancelacion"
     })
     public static class XmlRespCancelacionTicket {
 
         protected int error;
         @XmlElement(required = true)
         protected String mensaje;
+        protected int nroCancelacion;
 
         /**
          * Obtiene el valor de la propiedad error.
@@ -332,6 +336,22 @@ public class XmlRes {
          */
         public void setMensaje(String value) {
             this.mensaje = value;
+        }
+
+        /**
+         * Obtiene el valor de la propiedad nroCancelacion.
+         * 
+         */
+        public int getNroCancelacion() {
+            return nroCancelacion;
+        }
+
+        /**
+         * Define el valor de la propiedad nroCancelacion.
+         * 
+         */
+        public void setNroCancelacion(int value) {
+            this.nroCancelacion = value;
         }
 
     }
