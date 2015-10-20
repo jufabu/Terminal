@@ -53,6 +53,7 @@ public class Interfaz {
 			System.out.println("------------------------Menu terminal------------------------");
 			System.out.println("1- Alta Ticket");
 			System.out.println("2- Cancelacion Ticket");
+			System.out.println("3- Exit");
 			Scanner entrada = new Scanner(System.in);
 			cadena = entrada.nextLine();
 			try {
@@ -108,6 +109,22 @@ public class Interfaz {
 					}
 					
 					
+				} else if(3 == Integer.parseInt(cadena)){
+					
+					System.out.println("Esta seguro que desea salir? S/N");
+					if ("S" == cadena){
+						try{
+							socket.XmlExit();
+						}catch(Exception e){
+							System.out.println("Error al salir del Sistema.");
+						}						
+					}else if ("N" == cadena){
+						
+					}else {
+						System.out.println("Opcion Incorrecta");
+					}
+					
+					
 				} else {
 					System.out.println("Opcion Incorrecta");
 				}
@@ -118,10 +135,4 @@ public class Interfaz {
 		}
 	}
 
-	/*
-	 * SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy"); fechaIn
-	 * = cadena.substring(8, 24); try { fechaInicio = formatter.parse(fechaIn);
-	 * System.out.println("La fecha es: " + formatter.format(fechaInicio)); }
-	 * catch (ParseException ex) { ex.printStackTrace(); }
-	 */
 }

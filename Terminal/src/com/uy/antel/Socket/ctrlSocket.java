@@ -216,5 +216,32 @@ public class ctrlSocket {
 		}
 
 	}
+	
+	public void XmlExit(){
+		
+		try {
+			com.uy.antel.xml.ticket.ObjectFactory factory = new com.uy.antel.xml.ticket.ObjectFactory();
+			XmlCancelacionTicket exitTicket = factory.createXmlTicketXmlCancelacionTicket();
+			
+			XmlTicket tick = factory.createXmlTicket();
+			tick.setOperacion(OperacionT.EXIT);
+			JAXBContext context = JAXBContext.newInstance("com.uy.antel.xml.ticket");
+
+			Marshaller marshaller = context.createMarshaller();
+
+			marshaller.setProperty("jaxb.formatted.output", Boolean.TRUE);
+
+			StringWriter writer = new StringWriter();
+			marshaller.marshal(tick, writer);
+			os.writeUTF(writer.toString());
+		} catch (JAXBException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+	}
 
 }
