@@ -112,6 +112,7 @@ public class Interfaz {
 				} else if(3 == Integer.parseInt(cadena)){
 					
 					System.out.println("Esta seguro que desea salir? S/N");
+					cadena = entrada.nextLine();
 					if ("S" == cadena){
 						try{
 							socket.XmlExit();
