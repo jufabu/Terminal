@@ -115,7 +115,7 @@ public class Interfaz {
 					if (error == 0 && xmlResTicket.getOperacion().toString() == OperacionT.CANCELACION.toString()) {
 						mensaje = xmlResTicket.getXmlRespCancelacionTicket().getMensaje();
 						//ESTE ES EL CODIGO DE CANCELACiON
-						//System.out.println("La cancelacion " + xmlResTicket.getXmlRespCancelacionTicket().getNroCancelacion()+" se ha realizado con exito.");
+						System.out.println("La cancelacion " + xmlResTicket.getXmlRespCancelacionTicket().getNroCancelacion()+" se ha realizado con exito.");
 						System.out.println(mensaje);
 					} else {
 						System.out.println("Error: "+xmlResTicket.getXmlRespCancelacionTicket().getError());
