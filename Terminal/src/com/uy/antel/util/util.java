@@ -9,6 +9,11 @@ import java.util.Properties;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+import org.apache.commons.lang3.tuple.ImmutablePair;
+import org.apache.commons.lang3.tuple.Pair;
+
+
+
 public class util {
 	
 	private static String formatoEsperadoFecha = "yyyy-MM-dd_HH:mm";
@@ -77,20 +82,23 @@ public class util {
 		return ok;
 	}
 	
-	public static boolean validarEntradas(String matricula, String fecha, String duracion){
+	public static Pair<Integer, String> validarEntradas(String matricula, String fecha, String duracion){
+		Pair<Integer, String> error;
 		if (validarMatricula(matricula)){
 			if (esValidaFecha(fecha)){
 				if (validarTiempo(duracion)){
-					return true;
+					error = new ImmutablePair<Integer, String>(0, "");
 				}else{
-					return false;
+					error = new ImmutablePair<Integer, String>(105, "El tiempo de duracion ingresado no es correcto.");
 				}
 			}else{
-				return false;
+				error = new ImmutablePair<Integer, String>(11, "La fecha ingresada no es correcta.");
 			}
 		}else{
-			return false;
+			error = new ImmutablePair<Integer, String>(10, "La matricula ingresada no es correcta.");
 		}
+		return error;
+		
 	}
 	
 	public static boolean validarTiempo(String duracion){

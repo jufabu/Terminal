@@ -2,6 +2,8 @@ package com.uy.antel;
 
 import java.util.Scanner;
 
+import org.apache.commons.lang3.tuple.Pair;
+
 import com.uy.antel.Socket.ctrlSocket;
 import com.uy.antel.util.util;
 import com.uy.antel.xml.LoginResp.XmlLoginResp;
@@ -68,7 +70,8 @@ public class Interfaz {
 					cadena = entrada.nextLine();
 					String []argumentos = cadena.split(" ");
 					//TODO: validar estas entradas
-					if (util.validarEntradas(argumentos[0], argumentos[1], argumentos[2])){
+					Pair<Integer, String> salida = util.validarEntradas(argumentos[0], argumentos[1], argumentos[2]);
+					if (salida.getKey() == 0){
 						matricula = argumentos[0];
 						fechaIn = argumentos[1];
 						duracion = Integer.parseInt(argumentos[2]);
@@ -76,20 +79,22 @@ public class Interfaz {
 
 						xmlResTicket = socket.recibeRespuestaAltaCancTicket();
 						error = xmlResTicket.getXmlRespAltaTicket().getError();
+						if (error == 0 && xmlResTicket.getOperacion().toString() == OperacionT.ALTA.toString()) {
+							mensaje = xmlResTicket.getXmlRespAltaTicket().getMensaje();
+							System.out.println(mensaje);
+							System.out.println("Importe a pagar: " + xmlResTicket.getXmlRespAltaTicket().getImporteTotal());
+							System.out.println("NroTicket: " + xmlResTicket.getXmlRespAltaTicket().getNroTicket());
 
+						} else {
+
+							System.out.println("Error: "+xmlResTicket.getXmlRespAltaTicket().getError());
+							System.out.println(xmlResTicket.getXmlRespAltaTicket().getMensaje());
+						}
+					}else {
+						System.out.println(salida.getValue());
 					}
 					
-					if (error == 0 && xmlResTicket.getOperacion().toString() == OperacionT.ALTA.toString()) {
-						mensaje = xmlResTicket.getXmlRespAltaTicket().getMensaje();
-						System.out.println(mensaje);
-						System.out.println("Importe a pagar: " + xmlResTicket.getXmlRespAltaTicket().getImporteTotal());
-						System.out.println("NroTicket: " + xmlResTicket.getXmlRespAltaTicket().getNroTicket());
-
-					} else {
-
-						System.out.println("Error: "+xmlResTicket.getXmlRespAltaTicket().getError());
-						System.out.println(xmlResTicket.getXmlRespAltaTicket().getMensaje());
-					}
+					
 				} else if (2 == Integer.parseInt(cadena)) {
 					// Cancelacion de ticket
 					/* PIDO QUE INGRESE LOS DATOS */
@@ -106,9 +111,7 @@ public class Interfaz {
 
 					if (error == 0 && xmlResTicket.getOperacion().toString() == OperacionT.CANCELACION.toString()) {
 						mensaje = xmlResTicket.getXmlRespCancelacionTicket().getMensaje();
-						int nroCancelacion = xmlResTicket.getXmlRespCancelacionTicket().getNroCancelacion();
 						System.out.println(mensaje);
-						System.out.println("Nro CAncelacion: "+nroCancelacion);
 					} else {
 						System.out.println("Error: "+xmlResTicket.getXmlRespCancelacionTicket().getError());
 						System.out.println(xmlResTicket.getXmlRespCancelacionTicket().getMensaje());
@@ -119,25 +122,24 @@ public class Interfaz {
 					
 					System.out.println("Esta seguro que desea salir? S/N");
 					cadena = entrada.nextLine();
-					System.out.println("el valor de la cadena: "+ cadena);
-					if ("S" == cadena){
+					System.out.println("el valor de la cadena: "+ cadena.toString());
+					if ("S".equals(cadena.toUpperCase())){
 						try{
 							socket.XmlExit();
+							break;
 						}catch(Exception e){
 							System.out.println("Error al salir del Sistema.");
 						}						
-					}else if ("N" == cadena){
+					}else if ("N".equals(cadena.toUpperCase())){
 						
 					}else {
-						System.out.println("Opcion Incorrecta");
-					}
-					
-					
+						System.out.println("Opcion Incorrecta.");
+					}					
 				} else {
-					System.out.println("Opcion Incorrecta");
+					System.out.println("Opcion Incorrecta, seleccione una de las opciones del menu.");
 				}
 			} catch (NumberFormatException e) {
-				System.out.println("Se debe ingresar un numero correcto");
+				System.out.println("Se debe ingresar un numero correcto.");
 			}
 
 		}
