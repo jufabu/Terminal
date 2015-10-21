@@ -69,31 +69,34 @@ public class Interfaz {
 
 					cadena = entrada.nextLine();
 					String []argumentos = cadena.split(" ");
-					//TODO: validar estas entradas
-					Pair<Integer, String> salida = util.validarEntradas(argumentos[0], argumentos[1], argumentos[2]);
-					if (salida.getKey() == 0){
-						matricula = argumentos[0];
-						fechaIn = argumentos[1];
-						duracion = Integer.parseInt(argumentos[2]);
-						socket.XmlEnvioAltaTicket(matricula, fechaIn, duracion);
-
-						xmlResTicket = socket.recibeRespuestaAltaCancTicket();
-						error = xmlResTicket.getXmlRespAltaTicket().getError();
-						if (error == 0 && xmlResTicket.getOperacion().toString() == OperacionT.ALTA.toString()) {
-							mensaje = xmlResTicket.getXmlRespAltaTicket().getMensaje();
-							System.out.println(mensaje);
-							System.out.println("Importe a pagar: " + xmlResTicket.getXmlRespAltaTicket().getImporteTotal());
-							System.out.println("NroTicket: " + xmlResTicket.getXmlRespAltaTicket().getNroTicket());
-
-						} else {
-
-							System.out.println("Error: "+xmlResTicket.getXmlRespAltaTicket().getError());
-							System.out.println(xmlResTicket.getXmlRespAltaTicket().getMensaje());
+					if (argumentos.length == 3) {
+						//TODO: validar estas entradas
+						Pair<Integer, String> salida = util.validarEntradas(argumentos[0], argumentos[1], argumentos[2]);
+						if (salida.getKey() == 0){
+							matricula = argumentos[0];
+							fechaIn = argumentos[1];
+							duracion = Integer.parseInt(argumentos[2]);
+							socket.XmlEnvioAltaTicket(matricula, fechaIn, duracion);
+	
+							xmlResTicket = socket.recibeRespuestaAltaCancTicket();
+							error = xmlResTicket.getXmlRespAltaTicket().getError();
+							if (error == 0 && xmlResTicket.getOperacion().toString() == OperacionT.ALTA.toString()) {
+								mensaje = xmlResTicket.getXmlRespAltaTicket().getMensaje();
+								System.out.println(mensaje);
+								System.out.println("Importe a pagar: " + xmlResTicket.getXmlRespAltaTicket().getImporteTotal());
+								System.out.println("NroTicket: " + xmlResTicket.getXmlRespAltaTicket().getNroTicket());
+	
+							} else {
+	
+								System.out.println("Error: "+xmlResTicket.getXmlRespAltaTicket().getError());
+								System.out.println(xmlResTicket.getXmlRespAltaTicket().getMensaje());
+							}
+						}else {
+							System.out.println(salida.getValue());
 						}
 					}else {
-						System.out.println(salida.getValue());
+						System.out.println("Por favor ingrese los datos correctamente.");
 					}
-					
 					
 				} else if (2 == Integer.parseInt(cadena)) {
 					// Cancelacion de ticket
@@ -111,6 +114,8 @@ public class Interfaz {
 
 					if (error == 0 && xmlResTicket.getOperacion().toString() == OperacionT.CANCELACION.toString()) {
 						mensaje = xmlResTicket.getXmlRespCancelacionTicket().getMensaje();
+						//ESTE ES EL CODIGO DE CANCELACiON
+						System.out.println("La cancelacion " + xmlResTicket.getXmlRespCancelacionTicket().getNroCancelacion()+" se ha realizado con exito.");
 						System.out.println(mensaje);
 					} else {
 						System.out.println("Error: "+xmlResTicket.getXmlRespCancelacionTicket().getError());
@@ -122,7 +127,6 @@ public class Interfaz {
 					
 					System.out.println("Esta seguro que desea salir? S/N");
 					cadena = entrada.nextLine();
-					System.out.println("el valor de la cadena: "+ cadena.toString());
 					if ("S".equals(cadena.toUpperCase())){
 						try{
 							socket.XmlExit();
